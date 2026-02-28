@@ -4,6 +4,14 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TCV LUXURY | The World's Most Exclusive Automobiles</title>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YS81SWHQRE"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-YS81SWHQRE');
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;900&family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Noto+Serif+JP:wght@300;400;600&display=swap" rel="stylesheet" />
   <style>
@@ -34,13 +42,13 @@
     }
     [data-theme="light"] .hero-bg {
       background:
-        linear-gradient(180deg, rgba(245,242,237,.15) 0%, rgba(245,242,237,.45) 45%, rgba(245,242,237,.88) 75%, #f5f2ed 100%),
-        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,.10) 0%, transparent 70%),
+        linear-gradient(180deg, rgba(245,242,237,.05) 0%, rgba(245,242,237,.12) 45%, rgba(245,242,237,.50) 78%, #f5f2ed 100%),
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,.06) 0%, transparent 70%),
         url('img_hero.jpg') center 40% / cover no-repeat;
     }
     [data-theme="light"] .card-img-wrap { background: #e8e4df; }
     [data-theme="light"] .card-img-wrap::after {
-      background: linear-gradient(180deg, rgba(255,255,255,.04) 0%, transparent 30%, rgba(236,233,227,.55) 80%, rgba(236,233,227,.92) 100%);
+      background: linear-gradient(180deg, transparent 0%, transparent 60%, rgba(255,255,255,.2) 85%, rgba(255,255,255,.45) 100%);
     }
     [data-theme="light"] .source-badge {
       background: rgba(245,242,237,.88);
@@ -277,8 +285,8 @@
       position: absolute;
       inset: 0;
       background:
-        linear-gradient(180deg, rgba(8,8,8,.22) 0%, rgba(8,8,8,.45) 40%, rgba(8,8,8,.88) 72%, #080808 100%),
-        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,.12) 0%, transparent 70%),
+        linear-gradient(180deg, rgba(8,8,8,.10) 0%, rgba(8,8,8,.18) 40%, rgba(8,8,8,.55) 78%, #080808 100%),
+        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,.08) 0%, transparent 70%),
         url('img_hero.jpg') center 40% / cover no-repeat;
     }
     .hero-lines {
@@ -309,6 +317,7 @@
       opacity: 0;
       transform: translateY(20px);
       animation: fadeUp .8s .3s forwards;
+      text-shadow: 0 1px 8px rgba(0,0,0,.6);
     }
     .hero-title {
       font-family: 'Cinzel', serif;
@@ -334,6 +343,7 @@
       opacity: 0;
       transform: translateY(20px);
       animation: fadeUp .8s .8s forwards;
+      text-shadow: 0 1px 6px rgba(0,0,0,.5);
     }
     .hero-divider {
       width: 80px;
@@ -456,11 +466,17 @@
       height: 1px;
       background: linear-gradient(90deg, rgba(201,168,76,.4), transparent);
     }
+
+    /* ── Search Bar (premium) ── */
     .filter-controls {
       display: flex;
-      flex-wrap: wrap;
+      flex-direction: column;
+      gap: 24px;
+    }
+    .search-row {
+      display: flex;
       gap: 16px;
-      align-items: center;
+      align-items: stretch;
     }
     .search-wrap {
       position: relative;
@@ -469,45 +485,74 @@
     }
     .search-wrap input {
       width: 100%;
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(201,168,76,.2);
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,168,76,.18);
       color: var(--platinum);
-      padding: 14px 48px 14px 20px;
+      padding: 18px 54px 18px 52px;
       font-family: 'Noto Serif JP', serif;
-      font-size: 13px;
+      font-size: 15px;
       outline: none;
-      transition: border-color .3s, background .3s;
+      transition: border-color .3s, background .3s, box-shadow .3s;
       letter-spacing: .05em;
+      border-radius: 6px;
     }
-    .search-wrap input::placeholder { color: var(--muted); }
+    .search-wrap input::placeholder { color: var(--muted); font-size: 13px; letter-spacing: .1em; }
     .search-wrap input:focus {
       border-color: var(--gold);
       background: rgba(201,168,76,.04);
+      box-shadow: 0 0 0 3px rgba(201,168,76,.08), 0 4px 24px rgba(0,0,0,.12);
     }
     .search-icon {
       position: absolute;
+      left: 18px; top: 50%;
+      transform: translateY(-50%);
+      color: var(--gold);
+      font-size: 18px;
+      transition: transform .3s, color .3s;
+      pointer-events: none;
+    }
+    .search-wrap input:focus ~ .search-icon {
+      transform: translateY(-50%) scale(1.15);
+      color: var(--gold-light);
+    }
+    .search-clear {
+      position: absolute;
       right: 16px; top: 50%;
       transform: translateY(-50%);
-      color: var(--gold-dark);
-      font-size: 16px;
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 18px;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity .2s, color .2s;
+      pointer-events: none;
+      line-height: 1;
     }
+    .search-clear.show { opacity: 1; pointer-events: auto; }
+    .search-clear:hover { color: var(--gold); }
+
+    /* ── Brand Filter Pills ── */
     .filter-btns {
       display: flex;
       flex-wrap: wrap;
-      gap: 10px;
+      gap: 8px;
+      align-items: center;
     }
     .filter-btn {
       font-family: 'Cinzel', serif;
       font-size: 10px;
-      letter-spacing: .25em;
-      padding: 10px 22px;
+      letter-spacing: .2em;
+      padding: 9px 20px;
       background: transparent;
-      border: 1px solid rgba(201,168,76,.25);
+      border: 1px solid rgba(201,168,76,.18);
       color: var(--muted);
       cursor: none;
-      transition: all .3s;
+      transition: all .25s ease;
+      border-radius: 100px;
       position: relative;
       overflow: hidden;
+      white-space: nowrap;
     }
     .filter-btn::before {
       content: '';
@@ -515,33 +560,59 @@
       inset: 0;
       background: linear-gradient(135deg, var(--gold-dark), var(--gold));
       opacity: 0;
-      transition: opacity .3s;
+      transition: opacity .25s;
+      border-radius: 100px;
     }
     .filter-btn span { position: relative; z-index: 1; }
-    .filter-btn:hover, .filter-btn.active {
+    .filter-btn:hover {
+      border-color: var(--gold);
+      color: var(--gold);
+    }
+    .filter-btn.active {
       color: var(--obsidian);
       border-color: var(--gold);
+      box-shadow: 0 2px 12px rgba(201,168,76,.25);
     }
-    .filter-btn:hover::before, .filter-btn.active::before { opacity: 1; }
+    .filter-btn.active::before { opacity: 1; }
+    .filter-btn:hover::before { opacity: .15; }
+    .filter-btn.active:hover::before { opacity: 1; }
+    .filter-count {
+      display: inline-block;
+      font-size: 9px;
+      min-width: 18px;
+      padding: 1px 5px;
+      border-radius: 10px;
+      background: rgba(201,168,76,.15);
+      color: var(--gold);
+      text-align: center;
+      margin-left: 6px;
+      font-family: 'Cinzel', serif;
+      letter-spacing: 0;
+    }
+    .filter-btn.active .filter-count {
+      background: rgba(0,0,0,.2);
+      color: var(--obsidian);
+    }
 
     /* ── SORT ── */
     .sort-select {
-      background: rgba(255,255,255,.03);
-      border: 1px solid rgba(201,168,76,.2);
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,168,76,.18);
       color: var(--platinum);
-      padding: 10px 16px;
+      padding: 18px 40px 18px 18px;
       font-family: 'Noto Serif JP', serif;
-      font-size: 12px;
+      font-size: 13px;
       outline: none;
       cursor: none;
-      transition: border-color .3s;
+      transition: border-color .3s, box-shadow .3s;
       appearance: none;
-      padding-right: 32px;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
       background-repeat: no-repeat;
-      background-position: right 12px center;
+      background-position: right 16px center;
+      border-radius: 6px;
+      min-width: 180px;
     }
-    .sort-select:focus { border-color: var(--gold); }
+    .sort-select:focus { border-color: var(--gold); box-shadow: 0 0 0 3px rgba(201,168,76,.08); }
     .sort-select option { background: var(--charcoal); }
 
     /* ── CAR GRID ── */
@@ -565,7 +636,8 @@
       position: relative;
       transition: border-color .4s, transform .4s, background .35s ease;
       opacity: 0;
-      transform: translateY(40px);
+      transform: translateY(20px);
+      border-radius: 6px;
     }
     .car-card.visible {
       animation: cardReveal .6s forwards;
@@ -573,6 +645,7 @@
     @keyframes cardReveal {
       to { opacity: 1; transform: translateY(0); }
     }
+    .car-card.visible { animation-duration: .35s; }
     .car-card:hover {
       border-color: rgba(201,168,76,.5);
       transform: translateY(-6px);
@@ -591,15 +664,17 @@
 
     .card-img-wrap {
       position: relative;
-      height: 280px;
+      height: 360px;
       overflow: hidden;
       background: #0c0c0c;
+      border-radius: 6px 6px 0 0;
     }
     .card-img-wrap::after {
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(180deg, rgba(8,8,8,.05) 0%, transparent 30%, rgba(8,8,8,.55) 80%, rgba(8,8,8,.88) 100%);
+      background: linear-gradient(180deg, transparent 0%, transparent 60%, rgba(8,8,8,.25) 85%, rgba(8,8,8,.5) 100%);
+      pointer-events: none;
     }
     .card-img {
       width: 100%;
@@ -1253,20 +1328,23 @@
     <div class="section-line"></div>
   </div>
   <div class="filter-controls">
-    <div class="search-wrap">
-      <input type="text" id="search-input" placeholder="Search by brand or model..." />
-      <span class="search-icon">⌕</span>
+    <div class="search-row">
+      <div class="search-wrap">
+        <input type="text" id="search-input" placeholder="Search Ferrari, Lamborghini, Porsche..." />
+        <span class="search-icon">⌕</span>
+        <button class="search-clear" id="search-clear" type="button">✕</button>
+      </div>
+      <select class="sort-select" id="sort-select">
+        <option value="default">SORT BY</option>
+        <option value="price-desc">Price: High → Low</option>
+        <option value="price-asc">Price: Low → High</option>
+        <option value="year-desc">Year: Newest</option>
+        <option value="year-asc">Year: Oldest</option>
+      </select>
     </div>
     <div class="filter-btns" id="brand-filters">
       <button class="filter-btn active" data-brand="all"><span>ALL</span></button>
     </div>
-    <select class="sort-select" id="sort-select">
-      <option value="default">— SORT —</option>
-      <option value="price-asc">Price: Low → High</option>
-      <option value="price-desc">Price: High → Low</option>
-      <option value="year-desc">Year: Newest First</option>
-      <option value="year-asc">Year: Oldest First</option>
-    </select>
   </div>
 </section>
 
@@ -1535,19 +1613,19 @@ const loadingEl = document.getElementById('loading');
 const skipLoad = new URLSearchParams(location.search).has('skip');
 let pct = 0;
 const loadInterval = setInterval(() => {
-  pct += skipLoad ? 100 : Math.random() * 18;
+  pct += skipLoad ? 100 : Math.random() * 35 + 5;
   if (pct > 100) pct = 100;
   loadingBar.style.width = pct + '%';
   loadingPct.textContent = Math.floor(pct) + '%';
   if (pct >= 100) {
     clearInterval(loadInterval);
-    const delay = skipLoad ? 0 : 600;
+    const delay = skipLoad ? 0 : 300;
     setTimeout(() => {
       loadingEl.classList.add('hidden');
       initAnimations();
     }, delay);
   }
-}, skipLoad ? 10 : 80);
+}, skipLoad ? 10 : 40);
 
 // ── CURSOR ────────────────────────────────────────────────────────────────────
 const cursor = document.getElementById('cursor');
@@ -1646,11 +1724,11 @@ function animateCounters() {
 const revealObserver = new IntersectionObserver(entries => {
   entries.forEach((entry, i) => {
     if (entry.isIntersecting) {
-      setTimeout(() => entry.target.classList.add('visible'), i * 80);
+      setTimeout(() => entry.target.classList.add('visible'), i * 30);
       revealObserver.unobserve(entry.target);
     }
   });
-}, { threshold: .1 });
+}, { threshold: .05 });
 
 // ── RENDER CARS ───────────────────────────────────────────────────────────────
 function getFilteredCars() {
@@ -1699,14 +1777,43 @@ window._carImgError = function(img) {
   img.parentNode.replaceChild(div, img);
 };
 
+// ── 画像プロキシURL生成 ──────────────────────────────────────────────────────
+function proxyImg(url) {
+  if (!url) return '';
+  // ローカル画像はそのまま / 外部画像はプロキシ経由
+  if (url.startsWith('/') || url.startsWith('data:')) return url;
+  return '/api/img?url=' + encodeURIComponent(url);
+}
+
 // ── 画像 HTML 生成 ─────────────────────────────────────────────────────────────
 function cardImageHtml(car) {
   const { gradient, emoji } = getBrandMeta(car.brand);
   if (car.imageUrl) {
-    return `<img class="card-img" src="${car.imageUrl}" alt="${car.brand} ${car.model}"
+    return `<img class="card-img" src="${proxyImg(car.imageUrl)}" alt="${car.brand} ${car.model}"
       data-brand="${car.brand}" loading="lazy" onerror="window._carImgError(this)">`;
   }
   return `<div class="card-img-placeholder" style="background:${gradient}">${emoji}</div>`;
+}
+
+// ── WhatsApp リンク生成 ───────────────────────────────────────────────────────
+function buildWhatsAppUrl(car) {
+  const phone = '818034648696';
+  const price = car.price ? car.price.toLocaleString() + '万円' : '価格応談';
+  const mile  = car.mileage && car.mileage !== '---' ? car.mileage : '';
+  const lines = [
+    `こんにちは！TCV LUXURYで下記のお車を拝見し、興味があります。`,
+    ``,
+    `🚗 ${car.brand} ${car.model}`,
+    car.grade ? `   グレード: ${car.grade}` : '',
+    car.year  ? `   年式: ${car.year}` : '',
+    `💰 価格: ${price}`,
+    mile      ? `📏 走行距離: ${mile}` : '',
+    ``,
+    car.detailUrl ? `📋 掲載ページ: ${car.detailUrl}` : '',
+    ``,
+    `詳細を教えていただけますか？よろしくお願いいたします。`,
+  ].filter(Boolean).join('\n');
+  return `https://wa.me/${phone}?text=${encodeURIComponent(lines)}`;
 }
 
 function renderCars() {
@@ -1731,7 +1838,7 @@ function renderCars() {
     const { gradient, emoji } = getBrandMeta(car.brand);
     const card = document.createElement('div');
     card.className = 'car-card';
-    card.style.animationDelay = (idx * 60) + 'ms';
+    card.style.animationDelay = (idx * 25) + 'ms';
 
     const yearDisp  = car.year ? car.year : 'N/A';
     const fuelDisp  = car.fuel || '---';
@@ -1764,21 +1871,17 @@ function renderCars() {
             <span class="price-val">${priceNum}</span>
             <span class="price-unit">万円</span>
           </div>
-          <button class="card-cta" data-id="${car.id}" data-url="${car.detailUrl || ''}">
-            <span>${hasLink ? 'VIEW DETAIL' : 'DETAIL'}</span>
+          <button class="card-cta" data-id="${car.id}">
+            <span>ENQUIRE</span>
           </button>
         </div>
       </div>`;
 
-    // CTAボタン: 実URLがあれば新タブで開く、なければモーダル
+    // CTAボタン → WhatsApp 問い合わせ
     card.querySelector('.card-cta').addEventListener('click', (e) => {
       e.stopPropagation();
       addRipple(e.currentTarget, e);
-      if (car.detailUrl) {
-        window.open(car.detailUrl, '_blank', 'noopener');
-      } else {
-        openModal(car);
-      }
+      window.open(buildWhatsAppUrl(car), '_blank', 'noopener');
     });
     // カード全体クリックでモーダル（実URLがあってもモーダル表示 → そこから外部リンク）
     card.addEventListener('click', () => openModal(car));
@@ -1804,6 +1907,7 @@ function addRipple(el, e) {
 // ── MODAL ─────────────────────────────────────────────────────────────────────
 function openModal(car) {
   if (!car) return;
+  window._modalCar = car;   // モーダルボタンから参照
   const { gradient, emoji } = getBrandMeta(car.brand);
   const yearDisp  = car.year ? car.year : 'N/A';
   const condDisp  = car.condition === 'new' ? 'NEW' : 'USED';
@@ -1816,7 +1920,7 @@ function openModal(car) {
 
   // ヒーロー: 実画像 or グラデーションプレースホルダー
   const heroImg = car.imageUrl
-    ? `<img src="${car.imageUrl}" alt="${car.brand} ${car.model}"
+    ? `<img src="${proxyImg(car.imageUrl)}" alt="${car.brand} ${car.model}"
          style="width:100%;height:100%;object-fit:cover;"
          onerror="this.style.display='none';document.getElementById('modal-hero-ph').style.display='flex'">`
     : '';
@@ -1850,10 +1954,7 @@ function openModal(car) {
           ${mileDisp !== '---' ? `<div style="font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.2em">MILEAGE: ${mileDisp}</div>` : ''}
         </div>
         <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
-          ${car.detailUrl
-            ? `<button class="modal-btn" onclick="window.open('${car.detailUrl}','_blank','noopener')">VIEW LISTING →</button>`
-            : `<button class="modal-btn">ENQUIRE NOW</button>`
-          }
+          <button class="modal-btn" onclick="window.open(buildWhatsAppUrl(window._modalCar),'_blank','noopener')">💬 ENQUIRE VIA WHATSAPP</button>
         </div>
       </div>
     </div>`;
@@ -1889,17 +1990,33 @@ function buildBrandFilters(brands) {
   const container = document.getElementById('brand-filters');
   // Keep ALL button, remove any previously added brand buttons
   container.querySelectorAll('.filter-btn:not([data-brand="all"])').forEach(b => b.remove());
+
+  // Update ALL button with total count
+  const allBtn = container.querySelector('[data-brand="all"]');
+  if (allBtn) allBtn.innerHTML = `<span>ALL<span class="filter-count">${allCars.length}</span></span>`;
+
   brands.forEach(brand => {
+    const count = allCars.filter(c => c.brand === brand).length;
     const btn = document.createElement('button');
     btn.className = 'filter-btn';
     btn.dataset.brand = brand;
-    btn.textContent = brand.toUpperCase();
+    btn.innerHTML = `<span>${brand.toUpperCase()}<span class="filter-count">${count}</span></span>`;
     container.appendChild(btn);
   });
 }
 
-document.getElementById('search-input').addEventListener('input', e => {
+const searchInput = document.getElementById('search-input');
+const searchClear = document.getElementById('search-clear');
+searchInput.addEventListener('input', e => {
   currentSearch = e.target.value;
+  searchClear.classList.toggle('show', !!currentSearch);
+  renderCars();
+});
+searchClear.addEventListener('click', () => {
+  searchInput.value = '';
+  currentSearch = '';
+  searchClear.classList.remove('show');
+  searchInput.focus();
   renderCars();
 });
 
