@@ -75,7 +75,19 @@ async function fetchPage(phrase, brandName, order = 'PRICE_DESC', maxCars = 30) 
 
   for (let attempt = 1; attempt <= 3; attempt++) {
     try {
-      const { data } = await axios.get(url, { headers: HEADERS, timeout: 30000 });
+      const resp = await axios.get(url, {
+        headers: HEADERS,
+        timeout: 30000,
+        validateStatus: s => s === 200 || s === 404,   // 404 = 0件ヒット（正常）
+      });
+
+      // 404 = GooNet上で検索結果 0 件 → リトライ不要、即 return
+      if (resp.status === 404) {
+        console.log(`[GooNet] ${brandName} [${phrase}] ${order}: 0 results (404) — skipping`);
+        return [];
+      }
+
+      const data = resp.data;
       const $ = cheerio.load(data, { xmlMode: false });
       const cars = [];
 
@@ -198,7 +210,7 @@ async function fetchBrand(phrase, brandName, _unused, maxPerFetch = 30) {
     }
     console.log(`[GooNet] ${brandName} [${phrase}] ${order}: ${cars.length} fetched, ${newCount} new (total: ${allCars.length})`);
     if (cars.length < 3) break;
-    await delay(600);
+    await delay(400);
   }
 
   return allCars;
@@ -217,7 +229,7 @@ async function scrapeAll() {
         results.push(car);
       }
     }
-    await delay(1200);
+    await delay(800);
   }
 
   console.log(`[GooNet] 全ブランド合計: ${results.length} 台（重複除去済み）`);

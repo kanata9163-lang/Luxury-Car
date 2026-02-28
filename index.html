@@ -2032,37 +2032,51 @@ async function loadCarsFromAPI() {
 
   // ステータス表示
   if (statusEl) {
-    statusEl.innerHTML = `<span class="api-status-dot pulsing"></span> Fetching live listings from Goo-Net... <small>(may take 1–2 min on first load)</small>`;
+    statusEl.innerHTML = `<span class="api-status-dot pulsing"></span> Loading vehicle data...`;
     statusEl.style.display = 'flex';
   }
 
+  let data = null;
+
+  // 1) 静的 JSON を試す（Vercel ビルド時生成）
   try {
-    const res  = await fetch('/api/cars?limit=500');
-    if (!res.ok) throw new Error(`HTTP ${res.status}`);
-    const data = await res.json();
-
-    if (data.success && Array.isArray(data.cars) && data.cars.length > 0) {
-      allCars   = data.cars;
-      apiLoaded = true;
-
-      // ブランドフィルターボタン生成
-      if (Array.isArray(data.brands) && data.brands.length) {
-        buildBrandFilters(data.brands);
-      }
-
-      if (statusEl) {
-        statusEl.innerHTML = `<span class="api-status-dot"></span> ${allCars.length} vehicles loaded — Goo-Net Live Data`;
-        setTimeout(() => statusEl.style.opacity = '0', 4000);
-        setTimeout(() => { statusEl.style.display = 'none'; statusEl.style.opacity = '1'; }, 4600);
-      }
-    } else {
-      throw new Error('No cars returned');
+    const res = await fetch('/cars.json');
+    if (res.ok) {
+      data = await res.json();
+      console.log('[Load] Static cars.json loaded');
     }
-  } catch (err) {
-    console.warn('[API] Failed, using mock data:', err.message);
+  } catch (e) { /* ignore */ }
+
+  // 2) フォールバック: ライブ API（ローカル開発用）
+  if (!data) {
+    try {
+      const res = await fetch('/api/cars?limit=500');
+      if (res.ok) {
+        data = await res.json();
+        console.log('[Load] Live API loaded');
+      }
+    } catch (e) { /* ignore */ }
+  }
+
+  // 3) データ適用
+  if (data && data.success && Array.isArray(data.cars) && data.cars.length > 0) {
+    allCars   = data.cars;
+    apiLoaded = true;
+
+    if (Array.isArray(data.brands) && data.brands.length) {
+      buildBrandFilters(data.brands);
+    }
+
+    if (statusEl) {
+      statusEl.innerHTML = `<span class="api-status-dot"></span> ${allCars.length} vehicles loaded — Goo-Net Data`;
+      setTimeout(() => statusEl.style.opacity = '0', 3000);
+      setTimeout(() => { statusEl.style.display = 'none'; statusEl.style.opacity = '1'; }, 3600);
+    }
+  } else {
+    console.warn('[Load] No data available, using mock');
     allCars = mockCars;
     if (statusEl) {
-      statusEl.innerHTML = `<span class="api-status-dot" style="background:#c0392b"></span> Offline — showing sample data <small>(${err.message})</small>`;
+      statusEl.innerHTML = `<span class="api-status-dot" style="background:#c0392b"></span> Offline — showing sample data`;
     }
   }
 
