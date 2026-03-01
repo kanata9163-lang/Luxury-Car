@@ -42,8 +42,7 @@
     }
     [data-theme="light"] .hero-bg {
       background:
-        linear-gradient(180deg, rgba(245,242,237,.05) 0%, rgba(245,242,237,.12) 45%, rgba(245,242,237,.50) 78%, #f5f2ed 100%),
-        radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201,168,76,.06) 0%, transparent 70%),
+        linear-gradient(180deg, transparent 0%, transparent 65%, rgba(245,242,237,.45) 88%, #f5f2ed 100%),
         url('img_hero.jpg') center 40% / cover no-repeat;
     }
     [data-theme="light"] .card-img-wrap { background: #e8e4df; }
@@ -1202,6 +1201,128 @@
       letter-spacing: .3em;
     }
 
+    /* ── CONTACT MODAL ── */
+    #contact-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.75);
+      z-index: 1001;
+      backdrop-filter: blur(12px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .4s, visibility .4s;
+      padding: 20px;
+    }
+    #contact-overlay.open { opacity: 1; visibility: visible; }
+    .contact-panel {
+      background: var(--charcoal);
+      border: 1px solid rgba(201,168,76,.25);
+      max-width: 520px;
+      width: 100%;
+      padding: 48px 40px;
+      position: relative;
+      transform: translateY(30px) scale(.96);
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+      border-radius: 8px;
+    }
+    #contact-overlay.open .contact-panel {
+      transform: translateY(0) scale(1);
+    }
+    .contact-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      background: transparent;
+      border: 1px solid rgba(201,168,76,.2);
+      color: var(--muted);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .3s;
+      border-radius: 4px;
+    }
+    .contact-close:hover { background: var(--gold); color: #fff; }
+    .contact-title {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      letter-spacing: .15em;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .contact-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 32px;
+      letter-spacing: .05em;
+    }
+    .contact-options {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .contact-option {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      padding: 20px 24px;
+      background: rgba(201,168,76,.03);
+      border: 1px solid rgba(201,168,76,.12);
+      border-radius: 8px;
+      text-decoration: none;
+      color: var(--platinum);
+      cursor: pointer;
+      transition: all .3s;
+    }
+    .contact-option:hover {
+      border-color: var(--gold);
+      background: rgba(201,168,76,.08);
+      transform: translateX(4px);
+    }
+    .contact-option-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(201,168,76,.1);
+      border-radius: 50%;
+    }
+    .contact-option-text {
+      flex: 1;
+    }
+    .contact-option-label {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      letter-spacing: .15em;
+      color: var(--platinum);
+      margin-bottom: 4px;
+    }
+    .contact-option-desc {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .contact-option-arrow {
+      font-size: 18px;
+      color: var(--gold);
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity .3s, transform .3s;
+    }
+    .contact-option:hover .contact-option-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       nav { padding: 20px 30px; }
@@ -1263,7 +1384,7 @@
   <ul class="nav-links">
     <li><a href="#cars-section">CATALOG</a></li>
     <li><a href="#features">SERVICES</a></li>
-    <li><a href="#">CONTACT</a></li>
+    <li><a href="#" id="nav-contact">CONTACT</a></li>
   </ul>
   <button id="theme-toggle" aria-label="Toggle light/dark theme">
     <span id="theme-icon">☽</span>
@@ -1391,11 +1512,46 @@
   <div class="footer-copy">© 2026 TCV LUXURY. ALL RIGHTS RESERVED.</div>
 </footer>
 
-<!-- Modal -->
+<!-- Car Detail Modal -->
 <div id="modal-overlay">
   <div id="modal">
     <button class="modal-close" id="modal-close">✕</button>
     <div id="modal-content"></div>
+  </div>
+</div>
+
+<!-- Contact Modal -->
+<div id="contact-overlay">
+  <div class="contact-panel">
+    <button class="contact-close" id="contact-close">✕</button>
+    <div class="contact-title">GET IN TOUCH</div>
+    <div class="contact-subtitle">How would you like to connect with us?</div>
+    <div class="contact-options">
+      <a class="contact-option" href="https://wa.me/818034648696?text=Hello%2C%20I%27d%20like%20to%20speak%20with%20a%20Sales%20Manager%20about%20a%20vehicle%20on%20TCV%20LUXURY." target="_blank" rel="noopener">
+        <div class="contact-option-icon">💬</div>
+        <div class="contact-option-text">
+          <div class="contact-option-label">CHAT WITH SALES MANAGER</div>
+          <div class="contact-option-desc">Talk directly with our specialist via WhatsApp</div>
+        </div>
+        <span class="contact-option-arrow">→</span>
+      </a>
+      <a class="contact-option" href="https://www.tc-v.com/" target="_blank" rel="noopener">
+        <div class="contact-option-icon">🌐</div>
+        <div class="contact-option-text">
+          <div class="contact-option-label">VISIT TCV WEBSITE</div>
+          <div class="contact-option-desc">Browse our full inventory at tc-v.com</div>
+        </div>
+        <span class="contact-option-arrow">→</span>
+      </a>
+      <a class="contact-option" href="https://tcv-meta-lp.vercel.app/" target="_blank" rel="noopener">
+        <div class="contact-option-icon">🔍</div>
+        <div class="contact-option-text">
+          <div class="contact-option-label">BACK ORDER A VEHICLE</div>
+          <div class="contact-option-desc">Can't find what you want? Tell us and we'll source it for you</div>
+        </div>
+        <span class="contact-option-arrow">→</span>
+      </a>
+    </div>
   </div>
 </div>
 
@@ -1798,20 +1954,20 @@ function cardImageHtml(car) {
 // ── WhatsApp リンク生成 ───────────────────────────────────────────────────────
 function buildWhatsAppUrl(car) {
   const phone = '818034648696';
-  const price = car.price ? car.price.toLocaleString() + '万円' : '価格応談';
+  const price = car.price ? '¥' + car.price.toLocaleString() + ' Man' : 'Price on request';
   const mile  = car.mileage && car.mileage !== '---' ? car.mileage : '';
   const lines = [
-    `こんにちは！TCV LUXURYで下記のお車を拝見し、興味があります。`,
+    `Hello! I found this vehicle on TCV LUXURY and I'm interested.`,
     ``,
     `🚗 ${car.brand} ${car.model}`,
-    car.grade ? `   グレード: ${car.grade}` : '',
-    car.year  ? `   年式: ${car.year}` : '',
-    `💰 価格: ${price}`,
-    mile      ? `📏 走行距離: ${mile}` : '',
+    car.grade ? `   Grade: ${car.grade}` : '',
+    car.year  ? `   Year: ${car.year}` : '',
+    `💰 Price: ${price}`,
+    mile      ? `📏 Mileage: ${mile}` : '',
     ``,
-    car.detailUrl ? `📋 掲載ページ: ${car.detailUrl}` : '',
+    car.detailUrl ? `📋 Listing: ${car.detailUrl}` : '',
     ``,
-    `詳細を教えていただけますか？よろしくお願いいたします。`,
+    `Could you please provide more details? Thank you!`,
   ].filter(Boolean).join('\n');
   return `https://wa.me/${phone}?text=${encodeURIComponent(lines)}`;
 }
@@ -1966,12 +2122,36 @@ document.getElementById('modal-close').addEventListener('click', closeModal);
 document.getElementById('modal-overlay').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeModal();
 });
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    closeModal();
+    contactOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
 
 function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+// ── CONTACT MODAL ─────────────────────────────────────────────────────────────
+const contactOverlay = document.getElementById('contact-overlay');
+document.getElementById('nav-contact').addEventListener('click', e => {
+  e.preventDefault();
+  contactOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+});
+document.getElementById('contact-close').addEventListener('click', () => {
+  contactOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+});
+contactOverlay.addEventListener('click', e => {
+  if (e.target === e.currentTarget) {
+    contactOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
 
 // ── FILTERS ───────────────────────────────────────────────────────────────────
 function setupFilterBtns() {
