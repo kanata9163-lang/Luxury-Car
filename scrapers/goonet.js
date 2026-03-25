@@ -156,6 +156,10 @@ async function fetchPage(phrase, brandName, order = 'PRICE_DESC', maxCars = 30) 
         if (!imgSrc || imgSrc.includes('noimage') || imgSrc.includes('no_img') || imgSrc.length < 20) {
           imgSrc = '';
         }
+        // サムネイル → 大サイズにアップグレード (/J/ → /L/)
+        if (imgSrc && imgSrc.includes('/J/')) {
+          imgSrc = imgSrc.replace('/J/', '/L/');
+        }
 
         const fullUrl = href.startsWith('http') ? href : BASE + href;
 

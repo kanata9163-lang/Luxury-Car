@@ -4,6 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TCV LUXURY | The World's Most Exclusive Automobiles</title>
+  <!-- Google Tag Manager -->
+  <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+  new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+  j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+  'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+  })(window,document,'script','dataLayer','GTM-W69PF7JH');</script>
+  <!-- End Google Tag Manager -->
   <!-- Google tag (gtag.js) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-YS81SWHQRE"></script>
   <script>
@@ -1201,6 +1208,255 @@
       letter-spacing: .3em;
     }
 
+    /* ── LOAD MORE BUTTON ── */
+    .load-more-wrap {
+      grid-column: 1 / -1;
+      display: flex;
+      justify-content: center;
+      padding: 40px 0 20px;
+    }
+    .load-more-btn {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      letter-spacing: .3em;
+      padding: 18px 56px;
+      background: transparent;
+      border: 2px solid var(--gold);
+      color: var(--gold);
+      cursor: pointer;
+      transition: all .4s;
+      position: relative;
+      overflow: hidden;
+    }
+    .load-more-btn::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      transform: translateY(100%);
+      transition: transform .4s;
+    }
+    .load-more-btn:hover::before { transform: translateY(0); }
+    .load-more-btn span { position: relative; z-index: 1; }
+    .load-more-btn:hover { color: var(--obsidian); }
+    .load-more-count {
+      font-size: 10px;
+      display: block;
+      margin-top: 4px;
+      color: var(--muted);
+      letter-spacing: .15em;
+    }
+
+    /* ── CTA BANNER (inline between cards) ── */
+    .cta-banner {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(201,168,76,.08), rgba(201,168,76,.03));
+      border: 1px solid rgba(201,168,76,.2);
+      border-radius: 12px;
+      padding: 48px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      flex-wrap: wrap;
+    }
+    .cta-banner-text {
+      flex: 1;
+      min-width: 240px;
+    }
+    .cta-banner-title {
+      font-family: 'Cinzel', serif;
+      font-size: 22px;
+      letter-spacing: .12em;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+    .cta-banner-desc {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 15px;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.7;
+    }
+    .cta-banner-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .cta-banner-btn {
+      font-family: 'Cinzel', serif;
+      font-size: 11px;
+      letter-spacing: .2em;
+      padding: 16px 32px;
+      border: none;
+      cursor: pointer;
+      transition: all .3s;
+      text-decoration: none;
+      text-align: center;
+      white-space: nowrap;
+    }
+    .cta-banner-btn.primary {
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: var(--obsidian);
+      font-weight: 600;
+    }
+    .cta-banner-btn.primary:hover { opacity: .85; transform: translateY(-2px); }
+    .cta-banner-btn.secondary {
+      background: transparent;
+      border: 1px solid rgba(201,168,76,.3);
+      color: var(--gold);
+    }
+    .cta-banner-btn.secondary:hover { background: rgba(201,168,76,.1); }
+
+    /* ── LEAD CAPTURE FORM MODAL ── */
+    #lead-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.8);
+      z-index: 1002;
+      backdrop-filter: blur(14px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity .4s, visibility .4s;
+      padding: 20px;
+    }
+    #lead-overlay.open { opacity: 1; visibility: visible; }
+    .lead-panel {
+      background: var(--charcoal);
+      border: 1px solid rgba(201,168,76,.25);
+      max-width: 520px;
+      width: 100%;
+      padding: 44px 40px;
+      position: relative;
+      transform: translateY(30px) scale(.96);
+      transition: transform .4s cubic-bezier(.34,1.56,.64,1);
+      border-radius: 10px;
+    }
+    #lead-overlay.open .lead-panel { transform: translateY(0) scale(1); }
+    .lead-close {
+      position: absolute;
+      top: 16px; right: 16px;
+      width: 36px; height: 36px;
+      background: transparent;
+      border: 1px solid rgba(201,168,76,.2);
+      color: var(--muted);
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all .3s;
+      border-radius: 4px;
+    }
+    .lead-close:hover { background: var(--gold); color: #fff; }
+    .lead-title {
+      font-family: 'Cinzel', serif;
+      font-size: 20px;
+      letter-spacing: .12em;
+      color: var(--gold);
+      margin-bottom: 6px;
+    }
+    .lead-subtitle {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 14px;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 28px;
+    }
+    .lead-car-summary {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 14px 16px;
+      background: rgba(201,168,76,.05);
+      border: 1px solid rgba(201,168,76,.12);
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    .lead-car-thumb {
+      width: 80px; height: 56px;
+      object-fit: cover;
+      border-radius: 4px;
+      background: var(--smoke);
+    }
+    .lead-car-info {
+      flex: 1;
+    }
+    .lead-car-brand {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      letter-spacing: .3em;
+      color: var(--gold);
+    }
+    .lead-car-model {
+      font-family: 'Cinzel', serif;
+      font-size: 15px;
+      color: var(--platinum);
+      font-weight: 600;
+    }
+    .lead-car-price {
+      font-size: 12px;
+      color: var(--muted);
+    }
+    .lead-form { display: flex; flex-direction: column; gap: 16px; }
+    .lead-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .lead-label {
+      font-family: 'Cinzel', serif;
+      font-size: 9px;
+      letter-spacing: .2em;
+      color: var(--muted);
+    }
+    .lead-label .req {
+      color: #c0392b;
+      margin-left: 4px;
+    }
+    .lead-input {
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(201,168,76,.15);
+      color: var(--platinum);
+      padding: 14px 16px;
+      font-family: 'Noto Serif JP', serif;
+      font-size: 14px;
+      border-radius: 6px;
+      outline: none;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .lead-input:focus {
+      border-color: var(--gold);
+      box-shadow: 0 0 0 3px rgba(201,168,76,.08);
+    }
+    .lead-input::placeholder { color: var(--muted); font-size: 12px; }
+    .lead-submit {
+      font-family: 'Cinzel', serif;
+      font-size: 12px;
+      letter-spacing: .2em;
+      padding: 16px 32px;
+      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+      color: var(--obsidian);
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      transition: opacity .3s, transform .3s;
+      border-radius: 6px;
+      margin-top: 8px;
+    }
+    .lead-submit:hover { opacity: .85; transform: translateY(-2px); }
+    .lead-submit:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+    .lead-wa-note {
+      font-size: 11px;
+      color: var(--muted);
+      text-align: center;
+      margin-top: 4px;
+      letter-spacing: .05em;
+    }
+
     /* ── CONTACT MODAL ── */
     #contact-overlay {
       position: fixed;
@@ -1357,6 +1613,10 @@
   </script>
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-W69PF7JH"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <!-- Custom Cursor -->
 <div id="cursor"></div>
@@ -1552,6 +1812,36 @@
         <span class="contact-option-arrow">→</span>
       </a>
     </div>
+  </div>
+</div>
+
+<!-- Lead Capture Form Modal -->
+<div id="lead-overlay">
+  <div class="lead-panel">
+    <button class="lead-close" id="lead-close">✕</button>
+    <div class="lead-title">ENQUIRE ABOUT THIS VEHICLE</div>
+    <div class="lead-subtitle">Fill in your details and we'll connect you via WhatsApp</div>
+    <div class="lead-car-summary" id="lead-car-summary"></div>
+    <form class="lead-form" id="lead-form" autocomplete="on">
+      <div class="lead-field">
+        <label class="lead-label">YOUR NAME <span class="req">*</span></label>
+        <input class="lead-input" type="text" id="lead-name" name="name" placeholder="e.g. John Smith" required autocomplete="name">
+      </div>
+      <div class="lead-field">
+        <label class="lead-label">EMAIL ADDRESS <span class="req">*</span></label>
+        <input class="lead-input" type="email" id="lead-email" name="email" placeholder="e.g. john@example.com" required autocomplete="email">
+      </div>
+      <div class="lead-field">
+        <label class="lead-label">PHONE NUMBER</label>
+        <input class="lead-input" type="tel" id="lead-phone" name="phone" placeholder="e.g. +81 90-1234-5678" autocomplete="tel">
+      </div>
+      <div class="lead-field">
+        <label class="lead-label">MESSAGE</label>
+        <textarea class="lead-input" id="lead-message" name="message" rows="3" placeholder="Any specific questions about this vehicle?"></textarea>
+      </div>
+      <button type="submit" class="lead-submit" id="lead-submit">💬 CONTINUE TO WHATSAPP</button>
+      <div class="lead-wa-note">You will be redirected to WhatsApp with your enquiry details</div>
+    </form>
   </div>
 </div>
 
@@ -1761,6 +2051,8 @@ let currentBrand = 'all';
 let currentSearch = '';
 let currentSort  = 'default';
 let apiLoaded    = false;
+const CARS_PER_PAGE = 8;
+let visibleCount = CARS_PER_PAGE;
 
 // ── LOADING ───────────────────────────────────────────────────────────────────
 const loadingBar = document.getElementById('loading-bar');
@@ -1972,26 +2264,81 @@ function buildWhatsAppUrl(car) {
   return `https://wa.me/${phone}?text=${encodeURIComponent(lines)}`;
 }
 
+// Note: All data rendered in cards comes from our own scraper (trusted source).
+// No user-submitted content is rendered via innerHTML.
 function renderCars() {
   const grid    = document.getElementById('cars-grid');
   const list    = getFilteredCars();
   const countEl = document.getElementById('car-count');
   const suffix  = apiLoaded ? 'Goo-Net Live' : 'Sample Data';
-  countEl.innerHTML = `<span>${list.length}</span> vehicles found <small style="color:var(--muted);font-size:.75em">(${suffix})</small>`;
+  countEl.textContent = '';
+  const countSpan = document.createElement('span');
+  countSpan.textContent = list.length;
+  countEl.appendChild(countSpan);
+  countEl.append(' vehicles found ');
+  const countSmall = document.createElement('small');
+  countSmall.style.cssText = 'color:var(--muted);font-size:.75em';
+  countSmall.textContent = '(' + suffix + ')';
+  countEl.appendChild(countSmall);
 
-  grid.innerHTML = '';
+  grid.textContent = '';
 
   if (list.length === 0) {
-    grid.innerHTML = `
-      <div class="empty-state">
-        <div class="empty-state-icon">🔍</div>
-        <div class="empty-state-text">VEHICLES NOT FOUND</div>
-      </div>`;
+    const emptyDiv = document.createElement('div');
+    emptyDiv.className = 'empty-state';
+    const iconDiv = document.createElement('div');
+    iconDiv.className = 'empty-state-icon';
+    iconDiv.textContent = '\u{1F50D}';
+    const textDiv = document.createElement('div');
+    textDiv.className = 'empty-state-text';
+    textDiv.textContent = 'VEHICLES NOT FOUND';
+    emptyDiv.appendChild(iconDiv);
+    emptyDiv.appendChild(textDiv);
+    grid.appendChild(emptyDiv);
     return;
   }
 
-  list.forEach((car, idx) => {
-    const { gradient, emoji } = getBrandMeta(car.brand);
+  const showCount = Math.min(visibleCount, list.length);
+  const CTA_AFTER = 4;
+
+  for (let idx = 0; idx < showCount; idx++) {
+    const car = list[idx];
+
+    // Inject CTA banner after 4th card
+    if (idx === CTA_AFTER) {
+      const ctaEl = document.createElement('div');
+      ctaEl.className = 'cta-banner';
+      const ctaText = document.createElement('div');
+      ctaText.className = 'cta-banner-text';
+      const ctaTitle = document.createElement('div');
+      ctaTitle.className = 'cta-banner-title';
+      ctaTitle.textContent = 'LOOKING FOR YOUR DREAM CAR?';
+      const ctaDesc = document.createElement('div');
+      ctaDesc.className = 'cta-banner-desc';
+      ctaDesc.textContent = 'Speak directly with our specialist or let us source the perfect vehicle for you. Over ' + list.length + ' premium vehicles available.';
+      ctaText.appendChild(ctaTitle);
+      ctaText.appendChild(ctaDesc);
+      const ctaActions = document.createElement('div');
+      ctaActions.className = 'cta-banner-actions';
+      const chatBtn = document.createElement('a');
+      chatBtn.className = 'cta-banner-btn primary';
+      chatBtn.href = 'https://wa.me/818034648696?text=' + encodeURIComponent("Hello! I'm browsing TCV LUXURY and would like to speak with a Sales Manager.");
+      chatBtn.target = '_blank';
+      chatBtn.rel = 'noopener';
+      chatBtn.textContent = '\u{1F4AC} CHAT NOW';
+      const backBtn = document.createElement('a');
+      backBtn.className = 'cta-banner-btn secondary';
+      backBtn.href = 'https://tcv-meta-lp.vercel.app/';
+      backBtn.target = '_blank';
+      backBtn.rel = 'noopener';
+      backBtn.textContent = '\u{1F50D} BACK ORDER';
+      ctaActions.appendChild(chatBtn);
+      ctaActions.appendChild(backBtn);
+      ctaEl.appendChild(ctaText);
+      ctaEl.appendChild(ctaActions);
+      grid.appendChild(ctaEl);
+    }
+
     const card = document.createElement('div');
     card.className = 'car-card';
     card.style.animationDelay = (idx * 25) + 'ms';
@@ -2002,49 +2349,131 @@ function renderCars() {
     const mileDisp  = car.mileage || '---';
     const priceNum  = car.price ? car.price.toLocaleString() : '---';
     const condDisp  = car.condition === 'new' ? 'NEW' : 'USED';
-    const hasLink   = !!(car.detailUrl);
 
-    card.innerHTML = `
-      <div class="card-img-wrap">
-        ${cardImageHtml(car)}
-        <div class="card-badge card-${car.condition === 'new' ? 'new' : 'used'}">${condDisp}</div>
-        <div class="card-rank">#${String(idx+1).padStart(2,'0')}</div>
-        ${car.sourceName ? `<div class="source-badge">${car.sourceName}</div>` : ''}
-      </div>
-      <div class="card-body">
-        <div class="card-brand">${car.brand.toUpperCase()}</div>
-        <div class="card-name">${car.model}</div>
-        ${car.grade ? `<div class="card-grade">${car.grade}</div>` : ''}
-        <div class="card-year">${yearDisp}${fuelDisp !== '---' ? ' · ' + fuelDisp : ''}</div>
-        <div class="card-specs">
-          <div class="spec-item"><span class="spec-val">${transDisp}</span><span class="spec-key">TRANS</span></div>
-          <div class="spec-item"><span class="spec-val">${mileDisp}</span><span class="spec-key">MILEAGE</span></div>
-          <div class="spec-item"><span class="spec-val">${fuelDisp}</span><span class="spec-key">FUEL</span></div>
-        </div>
-        <div class="card-footer">
-          <div class="card-price">
-            <span class="price-label">ASKING PRICE</span>
-            <span class="price-val">${priceNum}</span>
-            <span class="price-unit">万円</span>
-          </div>
-          <button class="card-cta" data-id="${car.id}">
-            <span>ENQUIRE</span>
-          </button>
-        </div>
-      </div>`;
+    // Build card with DOM (image HTML uses trusted scraper data only)
+    const imgWrap = document.createElement('div');
+    imgWrap.className = 'card-img-wrap';
+    imgWrap.innerHTML = cardImageHtml(car);
+    const badge = document.createElement('div');
+    badge.className = 'card-badge card-' + (car.condition === 'new' ? 'new' : 'used');
+    badge.textContent = condDisp;
+    imgWrap.appendChild(badge);
+    const rank = document.createElement('div');
+    rank.className = 'card-rank';
+    rank.textContent = '#' + String(idx+1).padStart(2,'0');
+    imgWrap.appendChild(rank);
+    if (car.sourceName) {
+      const src = document.createElement('div');
+      src.className = 'source-badge';
+      src.textContent = car.sourceName;
+      imgWrap.appendChild(src);
+    }
 
-    // CTAボタン → WhatsApp 問い合わせ
-    card.querySelector('.card-cta').addEventListener('click', (e) => {
+    const body = document.createElement('div');
+    body.className = 'card-body';
+    const brandDiv = document.createElement('div');
+    brandDiv.className = 'card-brand';
+    brandDiv.textContent = car.brand.toUpperCase();
+    body.appendChild(brandDiv);
+    const nameDiv = document.createElement('div');
+    nameDiv.className = 'card-name';
+    nameDiv.textContent = car.model;
+    body.appendChild(nameDiv);
+    if (car.grade) {
+      const gradeDiv = document.createElement('div');
+      gradeDiv.className = 'card-grade';
+      gradeDiv.textContent = car.grade;
+      body.appendChild(gradeDiv);
+    }
+    const yearDiv = document.createElement('div');
+    yearDiv.className = 'card-year';
+    yearDiv.textContent = yearDisp + (fuelDisp !== '---' ? ' \u00B7 ' + fuelDisp : '');
+    body.appendChild(yearDiv);
+
+    const specs = document.createElement('div');
+    specs.className = 'card-specs';
+    [['TRANS', transDisp], ['MILEAGE', mileDisp], ['FUEL', fuelDisp]].forEach(([key, val]) => {
+      const item = document.createElement('div');
+      item.className = 'spec-item';
+      const sv = document.createElement('span');
+      sv.className = 'spec-val';
+      sv.textContent = val;
+      const sk = document.createElement('span');
+      sk.className = 'spec-key';
+      sk.textContent = key;
+      item.appendChild(sv);
+      item.appendChild(sk);
+      specs.appendChild(item);
+    });
+    body.appendChild(specs);
+
+    const footer = document.createElement('div');
+    footer.className = 'card-footer';
+    const priceDiv = document.createElement('div');
+    priceDiv.className = 'card-price';
+    const pl = document.createElement('span');
+    pl.className = 'price-label';
+    pl.textContent = 'ASKING PRICE';
+    const pv = document.createElement('span');
+    pv.className = 'price-val';
+    pv.textContent = priceNum;
+    const pu = document.createElement('span');
+    pu.className = 'price-unit';
+    pu.textContent = '\u4E07\u5186';
+    priceDiv.appendChild(pl);
+    priceDiv.appendChild(pv);
+    priceDiv.appendChild(pu);
+    const ctaBtn = document.createElement('button');
+    ctaBtn.className = 'card-cta';
+    ctaBtn.dataset.id = car.id;
+    const ctaSpan = document.createElement('span');
+    ctaSpan.textContent = 'ENQUIRE';
+    ctaBtn.appendChild(ctaSpan);
+    footer.appendChild(priceDiv);
+    footer.appendChild(ctaBtn);
+    body.appendChild(footer);
+
+    card.appendChild(imgWrap);
+    card.appendChild(body);
+
+    // CTAボタン → リードキャプチャフォーム
+    ctaBtn.addEventListener('click', (e) => {
       e.stopPropagation();
       addRipple(e.currentTarget, e);
-      window.open(buildWhatsAppUrl(car), '_blank', 'noopener');
+      openLeadForm(car);
     });
-    // カード全体クリックでモーダル（実URLがあってもモーダル表示 → そこから外部リンク）
+    // カード全体クリックでモーダル
     card.addEventListener('click', () => openModal(car));
 
     grid.appendChild(card);
     revealObserver.observe(card);
-  });
+  }
+
+  // Load More button
+  if (showCount < list.length) {
+    const remaining = list.length - showCount;
+    const wrap = document.createElement('div');
+    wrap.className = 'load-more-wrap';
+    const lmBtn = document.createElement('button');
+    lmBtn.className = 'load-more-btn';
+    const lmSpan = document.createElement('span');
+    lmSpan.textContent = 'SHOW MORE';
+    const lmCount = document.createElement('span');
+    lmCount.className = 'load-more-count';
+    lmCount.textContent = remaining + ' more vehicles';
+    lmBtn.appendChild(lmSpan);
+    lmBtn.appendChild(lmCount);
+    wrap.appendChild(lmBtn);
+    grid.appendChild(wrap);
+    lmBtn.addEventListener('click', () => {
+      visibleCount += CARS_PER_PAGE;
+      renderCars();
+      setTimeout(() => {
+        const cards = grid.querySelectorAll('.car-card');
+        if (cards[showCount]) cards[showCount].scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+    });
+  }
 
   document.querySelectorAll('.feature-card').forEach(el => revealObserver.observe(el));
 }
@@ -2110,7 +2539,7 @@ function openModal(car) {
           ${mileDisp !== '---' ? `<div style="font-size:11px;color:var(--muted);margin-top:4px;letter-spacing:.2em">MILEAGE: ${mileDisp}</div>` : ''}
         </div>
         <div style="display:flex;flex-direction:column;gap:10px;align-items:flex-end">
-          <button class="modal-btn" onclick="window.open(buildWhatsAppUrl(window._modalCar),'_blank','noopener')">💬 ENQUIRE VIA WHATSAPP</button>
+          <button class="modal-btn" onclick="closeModal();openLeadForm(window._modalCar);">\u{1F4AC} ENQUIRE VIA WHATSAPP</button>
         </div>
       </div>
     </div>`;
@@ -2126,6 +2555,7 @@ document.addEventListener('keydown', e => {
   if (e.key === 'Escape') {
     closeModal();
     contactOverlay.classList.remove('open');
+    leadOverlay.classList.remove('open');
     document.body.style.overflow = '';
   }
 });
@@ -2134,6 +2564,102 @@ function closeModal() {
   document.getElementById('modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
+
+// ── LEAD CAPTURE FORM ─────────────────────────────────────────────────────────
+const leadOverlay = document.getElementById('lead-overlay');
+let _leadCar = null;
+
+function openLeadForm(car) {
+  _leadCar = car;
+  const summary = document.getElementById('lead-car-summary');
+  summary.textContent = '';
+  if (car.imageUrl) {
+    const thumb = document.createElement('img');
+    thumb.className = 'lead-car-thumb';
+    thumb.src = proxyImg(car.imageUrl);
+    thumb.alt = car.brand + ' ' + car.model;
+    summary.appendChild(thumb);
+  }
+  const info = document.createElement('div');
+  info.className = 'lead-car-info';
+  const brandEl = document.createElement('div');
+  brandEl.className = 'lead-car-brand';
+  brandEl.textContent = car.brand.toUpperCase();
+  const modelEl = document.createElement('div');
+  modelEl.className = 'lead-car-model';
+  modelEl.textContent = car.model;
+  const priceEl = document.createElement('div');
+  priceEl.className = 'lead-car-price';
+  priceEl.textContent = car.price ? '\u00A5' + car.price.toLocaleString() + ' \u4E07\u5186' : 'Price on request';
+  info.appendChild(brandEl);
+  info.appendChild(modelEl);
+  info.appendChild(priceEl);
+  summary.appendChild(info);
+
+  document.getElementById('lead-form').reset();
+  leadOverlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  setTimeout(() => document.getElementById('lead-name').focus(), 300);
+}
+
+document.getElementById('lead-close').addEventListener('click', () => {
+  leadOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+});
+leadOverlay.addEventListener('click', e => {
+  if (e.target === e.currentTarget) {
+    leadOverlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+});
+
+document.getElementById('lead-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  if (!_leadCar) return;
+  const name  = document.getElementById('lead-name').value.trim();
+  const email = document.getElementById('lead-email').value.trim();
+  const phone = document.getElementById('lead-phone').value.trim();
+  const msg   = document.getElementById('lead-message').value.trim();
+  const car   = _leadCar;
+
+  const waPhone = '818034648696';
+  const price = car.price ? '\u00A5' + car.price.toLocaleString() + ' Man' : 'Price on request';
+  const mile  = car.mileage && car.mileage !== '---' ? car.mileage : '';
+  const lines = [
+    'Hello! I found this vehicle on TCV LUXURY and I\'m interested.',
+    '',
+    '\u{1F697} ' + car.brand + ' ' + car.model,
+    car.grade ? '   Grade: ' + car.grade : '',
+    car.year  ? '   Year: ' + car.year : '',
+    '\u{1F4B0} Price: ' + price,
+    mile      ? '\u{1F4CF} Mileage: ' + mile : '',
+    '',
+    '\u{1F464} Name: ' + name,
+    '\u{1F4E7} Email: ' + email,
+    phone     ? '\u{1F4DE} Phone: ' + phone : '',
+    msg       ? '\u{1F4DD} Message: ' + msg : '',
+    '',
+    car.detailUrl ? '\u{1F4CB} Listing: ' + car.detailUrl : '',
+    '',
+    'Could you please provide more details? Thank you!',
+  ].filter(Boolean).join('\n');
+
+  // Push lead event to dataLayer for GTM
+  if (window.dataLayer) {
+    window.dataLayer.push({
+      event: 'lead_enquiry',
+      car_brand: car.brand,
+      car_model: car.model,
+      car_price: car.price,
+      lead_name: name,
+      lead_email: email,
+    });
+  }
+
+  window.open('https://wa.me/' + waPhone + '?text=' + encodeURIComponent(lines), '_blank', 'noopener');
+  leadOverlay.classList.remove('open');
+  document.body.style.overflow = '';
+});
 
 // ── CONTACT MODAL ─────────────────────────────────────────────────────────────
 const contactOverlay = document.getElementById('contact-overlay');
@@ -2162,6 +2688,7 @@ function setupFilterBtns() {
     document.querySelectorAll('#brand-filters .filter-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     currentBrand = btn.dataset.brand;
+    visibleCount = CARS_PER_PAGE;
     renderCars();
   });
 }
@@ -2190,6 +2717,7 @@ const searchClear = document.getElementById('search-clear');
 searchInput.addEventListener('input', e => {
   currentSearch = e.target.value;
   searchClear.classList.toggle('show', !!currentSearch);
+  visibleCount = CARS_PER_PAGE;
   renderCars();
 });
 searchClear.addEventListener('click', () => {
@@ -2202,6 +2730,7 @@ searchClear.addEventListener('click', () => {
 
 document.getElementById('sort-select').addEventListener('change', e => {
   currentSort = e.target.value;
+  visibleCount = CARS_PER_PAGE;
   renderCars();
 });
 
