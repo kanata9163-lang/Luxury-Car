@@ -1306,11 +1306,25 @@
       border: 1px solid rgba(201,168,76,.25);
       max-width: 520px;
       width: 100%;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
       padding: 44px 40px;
       position: relative;
       transform: translateY(30px) scale(.96);
       transition: transform .4s cubic-bezier(.34,1.56,.64,1);
       border-radius: 10px;
+    }
+    @media (max-width: 600px) {
+      .lead-panel { padding: 24px 16px; max-height: calc(100vh - 16px); }
+      #lead-overlay { padding: 8px; }
+      .lead-title { font-size: 16px; margin-bottom: 4px; }
+      .lead-subtitle { font-size: 12px; margin-bottom: 16px; }
+      .lead-car-summary { padding: 10px 12px; margin-bottom: 14px; }
+      .lead-car-thumb { width: 60px; height: 42px; }
+      .lead-car-model { font-size: 13px; }
+      .lead-input { padding: 10px 12px; font-size: 13px; }
+      .lead-submit { padding: 14px 24px; font-size: 11px; }
     }
     #lead-overlay.open .lead-panel { transform: translateY(0) scale(1); }
     .lead-close {
@@ -1378,11 +1392,21 @@
       font-size: 12px;
       color: var(--muted);
     }
-    .lead-form { display: flex; flex-direction: column; gap: 16px; }
+    .lead-form { display: flex; flex-direction: column; gap: 10px; }
+    .lead-row { display: flex; gap: 10px; }
+    .lead-row .lead-field { flex: 1; }
+    @media (max-width: 360px) { .lead-row { flex-direction: column; } }
+    .lead-input select, select.lead-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23c9a84c' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      padding-right: 36px;
+    }
     .lead-field {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
     }
     .lead-label {
       font-family: 'Cinzel', serif;
@@ -1398,9 +1422,9 @@
       background: rgba(255,255,255,.04);
       border: 1px solid rgba(201,168,76,.15);
       color: var(--platinum);
-      padding: 14px 16px;
+      padding: 12px 14px;
       font-family: 'Noto Serif JP', serif;
-      font-size: 14px;
+      font-size: 13px;
       border-radius: 6px;
       outline: none;
       transition: border-color .3s, box-shadow .3s;
@@ -1840,21 +1864,53 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
     <div class="lead-subtitle">Fill in your details and we'll connect you via WhatsApp</div>
     <div class="lead-car-summary" id="lead-car-summary"></div>
     <form class="lead-form" id="lead-form" autocomplete="on">
-      <div class="lead-field">
-        <label class="lead-label">YOUR NAME <span class="req">*</span></label>
-        <input class="lead-input" type="text" id="lead-name" name="name" placeholder="e.g. John Smith" required autocomplete="name">
+      <div class="lead-row">
+        <div class="lead-field">
+          <label class="lead-label">YOUR NAME <span class="req">*</span></label>
+          <input class="lead-input" type="text" id="lead-name" name="name" placeholder="e.g. John Smith" required autocomplete="name">
+        </div>
+        <div class="lead-field">
+          <label class="lead-label">COUNTRY <span class="req">*</span></label>
+          <input class="lead-input" type="text" id="lead-country" name="country" placeholder="e.g. UAE, USA, UK" required autocomplete="country-name">
+        </div>
+      </div>
+      <div class="lead-row">
+        <div class="lead-field">
+          <label class="lead-label">EMAIL <span class="req">*</span></label>
+          <input class="lead-input" type="email" id="lead-email" name="email" placeholder="e.g. john@example.com" required autocomplete="email">
+        </div>
+        <div class="lead-field">
+          <label class="lead-label">PHONE NUMBER</label>
+          <input class="lead-input" type="tel" id="lead-phone" name="phone" placeholder="e.g. +971 50 123 4567" autocomplete="tel">
+        </div>
       </div>
       <div class="lead-field">
-        <label class="lead-label">EMAIL ADDRESS <span class="req">*</span></label>
-        <input class="lead-input" type="email" id="lead-email" name="email" placeholder="e.g. john@example.com" required autocomplete="email">
+        <label class="lead-label">DESIRED VEHICLE</label>
+        <input class="lead-input" type="text" id="lead-desired-car" name="desired_car" placeholder="e.g. Ferrari SF90, Lamborghini Urus...">
       </div>
-      <div class="lead-field">
-        <label class="lead-label">PHONE NUMBER</label>
-        <input class="lead-input" type="tel" id="lead-phone" name="phone" placeholder="e.g. +81 90-1234-5678" autocomplete="tel">
-      </div>
-      <div class="lead-field">
-        <label class="lead-label">MESSAGE</label>
-        <textarea class="lead-input" id="lead-message" name="message" rows="3" placeholder="Any specific questions about this vehicle?"></textarea>
+      <div class="lead-row">
+        <div class="lead-field">
+          <label class="lead-label">BUDGET</label>
+          <select class="lead-input" id="lead-budget" name="budget">
+            <option value="">Select range</option>
+            <option value="~$100K">~ $100K</option>
+            <option value="$100K–$200K">$100K – $200K</option>
+            <option value="$200K–$500K">$200K – $500K</option>
+            <option value="$500K–$1M">$500K – $1M</option>
+            <option value="$1M+">$1M+</option>
+          </select>
+        </div>
+        <div class="lead-field">
+          <label class="lead-label">PURCHASE TIMING</label>
+          <select class="lead-input" id="lead-timing" name="timing">
+            <option value="">Select timing</option>
+            <option value="ASAP">ASAP</option>
+            <option value="Within 1 month">Within 1 month</option>
+            <option value="1–3 months">1–3 months</option>
+            <option value="3–6 months">3–6 months</option>
+            <option value="Just browsing">Just browsing</option>
+          </select>
+        </div>
       </div>
       <button type="submit" class="lead-submit" id="lead-submit">💬 CONTINUE TO WHATSAPP</button>
       <div class="lead-wa-note">You will be redirected to WhatsApp with your enquiry details</div>
@@ -2322,8 +2378,7 @@ function trackLead(car) {
 }
 
 function openWhatsApp(car) {
-  trackLead(car);
-  window.open(buildWhatsAppUrl(car), '_blank', 'noopener');
+  openLeadForm(car);
 }
 
 function buildWhatsAppUrl(car) {
@@ -2416,11 +2471,9 @@ function renderCars() {
       ctaActions.className = 'cta-banner-actions';
       const chatBtn = document.createElement('a');
       chatBtn.className = 'cta-banner-btn primary';
-      chatBtn.href = 'https://wa.me/818034648696?text=' + encodeURIComponent("Hello! I'm browsing TCV LUXURY and would like to get the best price on a vehicle.");
-      chatBtn.target = '_blank';
-      chatBtn.rel = 'noopener';
+      chatBtn.href = '#';
       chatBtn.textContent = 'TALK TO A SPECIALIST';
-      chatBtn.addEventListener('click', function() { trackLead(null); });
+      chatBtn.addEventListener('click', function(ev) { ev.preventDefault(); openLeadForm(null); });
       const backBtn = document.createElement('a');
       backBtn.className = 'cta-banner-btn secondary';
       backBtn.href = 'https://tcv-meta-lp.vercel.app/';
@@ -2639,30 +2692,39 @@ function openLeadForm(car) {
   _leadCar = car;
   const summary = document.getElementById('lead-car-summary');
   summary.textContent = '';
-  if (car.imageUrl) {
-    const thumb = document.createElement('img');
-    thumb.className = 'lead-car-thumb';
-    thumb.src = proxyImg(car.imageUrl);
-    thumb.alt = car.brand + ' ' + car.model;
-    summary.appendChild(thumb);
+
+  if (car) {
+    summary.style.display = '';
+    if (car.imageUrl) {
+      const thumb = document.createElement('img');
+      thumb.className = 'lead-car-thumb';
+      thumb.src = proxyImg(car.imageUrl);
+      thumb.alt = car.brand + ' ' + car.model;
+      summary.appendChild(thumb);
+    }
+    const info = document.createElement('div');
+    info.className = 'lead-car-info';
+    const brandEl = document.createElement('div');
+    brandEl.className = 'lead-car-brand';
+    brandEl.textContent = car.brand.toUpperCase();
+    const modelEl = document.createElement('div');
+    modelEl.className = 'lead-car-model';
+    modelEl.textContent = translateModel(car.model);
+    const yearEl = document.createElement('div');
+    yearEl.className = 'lead-car-price';
+    yearEl.textContent = (car.year || '') + (car.fuel ? ' \u00B7 ' + car.fuel : '');
+    info.appendChild(brandEl);
+    info.appendChild(modelEl);
+    info.appendChild(yearEl);
+    summary.appendChild(info);
+  } else {
+    summary.style.display = 'none';
   }
-  const info = document.createElement('div');
-  info.className = 'lead-car-info';
-  const brandEl = document.createElement('div');
-  brandEl.className = 'lead-car-brand';
-  brandEl.textContent = car.brand.toUpperCase();
-  const modelEl = document.createElement('div');
-  modelEl.className = 'lead-car-model';
-  modelEl.textContent = car.model;
-  const yearEl = document.createElement('div');
-  yearEl.className = 'lead-car-price';
-  yearEl.textContent = (car.year || '') + (car.fuel ? ' \u00B7 ' + car.fuel : '');
-  info.appendChild(brandEl);
-  info.appendChild(modelEl);
-  info.appendChild(yearEl);
-  summary.appendChild(info);
 
   document.getElementById('lead-form').reset();
+  if (car) {
+    document.getElementById('lead-desired-car').value = car.brand + ' ' + translateModel(car.model) + (car.year ? ' (' + car.year + ')' : '');
+  }
   leadOverlay.classList.add('open');
   document.body.style.overflow = 'hidden';
   setTimeout(() => document.getElementById('lead-name').focus(), 300);
@@ -2679,38 +2741,82 @@ leadOverlay.addEventListener('click', e => {
   }
 });
 
+// ── GAS_URL: Replace with your deployed Google Apps Script Web App URL ──
+const GAS_URL = 'YOUR_GAS_WEB_APP_URL_HERE';
+
 document.getElementById('lead-form').addEventListener('submit', (e) => {
   e.preventDefault();
-  if (!_leadCar) return;
-  const name  = document.getElementById('lead-name').value.trim();
-  const email = document.getElementById('lead-email').value.trim();
-  const phone = document.getElementById('lead-phone').value.trim();
-  const msg   = document.getElementById('lead-message').value.trim();
-  const car   = _leadCar;
+  const car        = _leadCar;
+  const name       = document.getElementById('lead-name').value.trim();
+  const country    = document.getElementById('lead-country').value.trim();
+  const email      = document.getElementById('lead-email').value.trim();
+  const phone      = document.getElementById('lead-phone').value.trim();
+  const desiredCar = document.getElementById('lead-desired-car').value.trim();
+  const budget     = document.getElementById('lead-budget').value;
+  const timing     = document.getElementById('lead-timing').value;
 
+  // Disable submit while processing
+  const submitBtn = document.getElementById('lead-submit');
+  submitBtn.disabled = true;
+  submitBtn.textContent = 'SENDING...';
+
+  // Build lead data for GAS
+  const leadData = {
+    timestamp:   new Date().toISOString(),
+    name:        name,
+    country:     country,
+    email:       email,
+    phone:       phone,
+    desired_car: desiredCar,
+    budget:      budget,
+    timing:      timing,
+    clicked_brand: car ? car.brand : '',
+    clicked_model: car ? translateModel(car.model) : '',
+    clicked_year:  car ? (car.year || '') : '',
+    listing_url:   car ? (car.detailUrl || '') : '',
+  };
+
+  // Send to GAS (fire-and-forget, don't block WhatsApp redirect)
+  if (GAS_URL && GAS_URL !== 'YOUR_GAS_WEB_APP_URL_HERE') {
+    fetch(GAS_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(leadData),
+    }).catch(() => {});
+  }
+
+  // Track lead
+  trackLead(car);
+
+  // Build WhatsApp message with user info
   const waPhone = '818034648696';
-  const mile  = car.mileage && car.mileage !== '---' ? car.mileage : '';
+  const mile  = car && car.mileage && car.mileage !== '---' ? car.mileage : '';
   const lines = [
     'Hello! I found this vehicle on TCV LUXURY and I\'d like to get the price and details.',
     '',
-    '\u{1F697} ' + car.brand + ' ' + car.model,
-    car.grade ? '   Grade: ' + car.grade : '',
-    car.year  ? '   Year: ' + car.year : '',
-    mile      ? '\u{1F4CF} Mileage: ' + mile : '',
+    car ? '\u{1F697} ' + car.brand + ' ' + translateModel(car.model) : '',
+    car && car.year  ? '   Year: ' + car.year : '',
+    mile             ? '\u{1F4CF} Mileage: ' + mile : '',
     '',
     '\u{1F464} Name: ' + name,
+    '\u{1F30D} Country: ' + country,
     '\u{1F4E7} Email: ' + email,
-    phone     ? '\u{1F4DE} Phone: ' + phone : '',
-    msg       ? '\u{1F4DD} Message: ' + msg : '',
+    phone   ? '\u{1F4DE} Phone: ' + phone : '',
+    desiredCar ? '\u{1F697} Desired: ' + desiredCar : '',
+    budget  ? '\u{1F4B0} Budget: ' + budget : '',
+    timing  ? '\u{23F0} Timing: ' + timing : '',
     '',
-    car.detailUrl ? '\u{1F4CB} Listing: ' + car.detailUrl : '',
+    car && car.detailUrl ? '\u{1F4CB} Listing: ' + car.detailUrl : '',
     '',
     'Could you please provide the price and more details? Thank you!',
   ].filter(Boolean).join('\n');
 
-  trackLead(car);
-
   window.open('https://wa.me/' + waPhone + '?text=' + encodeURIComponent(lines), '_blank', 'noopener');
+
+  // Reset
+  submitBtn.disabled = false;
+  submitBtn.textContent = '\u{1F4AC} CONTINUE TO WHATSAPP';
   leadOverlay.classList.remove('open');
   document.body.style.overflow = '';
 });
