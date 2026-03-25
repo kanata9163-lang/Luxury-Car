@@ -19,6 +19,10 @@
     gtag('js', new Date());
     gtag('config', 'G-YS81SWHQRE');
   </script>
+  <!-- Meta Pixel Code -->
+  <script>!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window, document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init', '26695493793388140');fbq('track', 'PageView');</script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=26695493793388140&ev=PageView&noscript=1"/></noscript>
+  <!-- End Meta Pixel Code -->
   <link rel="icon" type="image/png" href="rogo.png">
   <link rel="apple-touch-icon" href="rogo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -95,8 +99,8 @@
       background: linear-gradient(180deg, transparent 20%, #ffffff 100%);
     }
     [data-theme="light"] .modal-desc { color: rgba(26,26,26,.75); }
-    [data-theme="light"] .filter-btn:hover,
-    [data-theme="light"] .filter-btn.active { color: #1a1a1a; }
+    [data-theme="light"] .brand-select { background: rgba(0,0,0,.03); color: var(--platinum); }
+    [data-theme="light"] .brand-select option { background: #fff; color: #1a1a1a; }
     [data-theme="light"] ::-webkit-scrollbar-track { background: #f5f2ed; }
     [data-theme="light"] .nav-logo-text span { color: #666; }
 
@@ -540,66 +544,9 @@
     .search-clear.show { opacity: 1; pointer-events: auto; }
     .search-clear:hover { color: var(--gold); }
 
-    /* ── Brand Filter Pills ── */
-    .filter-btns {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      align-items: center;
-    }
-    .filter-btn {
-      font-family: 'Cinzel', serif;
-      font-size: 10px;
-      letter-spacing: .2em;
-      padding: 9px 20px;
-      background: transparent;
-      border: 1px solid rgba(201,168,76,.18);
-      color: var(--muted);
-      cursor: none;
-      transition: all .25s ease;
-      border-radius: 100px;
-      position: relative;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .filter-btn::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-      opacity: 0;
-      transition: opacity .25s;
-      border-radius: 100px;
-    }
-    .filter-btn span { position: relative; z-index: 1; }
-    .filter-btn:hover {
-      border-color: var(--gold);
-      color: var(--gold);
-    }
-    .filter-btn.active {
-      color: var(--obsidian);
-      border-color: var(--gold);
-      box-shadow: 0 2px 12px rgba(201,168,76,.25);
-    }
-    .filter-btn.active::before { opacity: 1; }
-    .filter-btn:hover::before { opacity: .15; }
-    .filter-btn.active:hover::before { opacity: 1; }
-    .filter-count {
-      display: inline-block;
-      font-size: 9px;
-      min-width: 18px;
-      padding: 1px 5px;
-      border-radius: 10px;
-      background: rgba(201,168,76,.15);
-      color: var(--gold);
-      text-align: center;
-      margin-left: 6px;
-      font-family: 'Cinzel', serif;
-      letter-spacing: 0;
-    }
-    .filter-btn.active .filter-count {
-      background: rgba(0,0,0,.2);
-      color: var(--obsidian);
+    /* ── Brand Select ── */
+    .brand-select {
+      flex: 1;
     }
 
     /* ── SORT ── */
@@ -631,7 +578,7 @@
     }
     #cars-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(min(340px, 100%), 1fr));
       gap: 28px;
     }
 
@@ -1610,18 +1557,58 @@
     }
 
     /* ── RESPONSIVE ── */
+    /* Hide custom cursor on touch devices */
+    @media (pointer: coarse) {
+      #cursor, #cursor-ring { display: none !important; }
+      body, .car-card, .filter-btn, .sort-select, #theme-toggle, .modal-close, .modal-btn,
+      .cta-banner-btn, .load-more-btn, .search-clear, .contact-option { cursor: auto !important; }
+    }
     @media (max-width: 900px) {
-      nav { padding: 20px 30px; }
-      nav.scrolled { padding: 14px 30px; }
+      nav { padding: 20px 24px; }
+      nav.scrolled { padding: 14px 24px; }
       .nav-links { display: none; }
-      #filter-section, #cars-section, #features, footer { padding-left: 30px; padding-right: 30px; }
+      #filter-section, #cars-section, #features, footer { padding-left: 24px; padding-right: 24px; }
       .features-grid { grid-template-columns: 1fr; }
       .modal-specs-grid { grid-template-columns: repeat(2,1fr); }
       .modal-body { padding: 24px; }
+      .modal-title { font-size: 24px; }
+      .cta-banner { padding: 40px 24px; }
+      .cta-banner-btn { padding: 14px 24px; font-size: 11px; }
     }
     @media (max-width: 600px) {
-      #cars-grid { grid-template-columns: 1fr; }
-      .hero-stats { gap: 30px; }
+      nav { padding: 16px 16px; }
+      nav.scrolled { padding: 12px 16px; }
+      .nav-logo-img { height: 30px; }
+      .nav-logo-text { font-size: 14px; letter-spacing: .2em; }
+      #filter-section, #cars-section, #features, footer { padding-left: 16px; padding-right: 16px; }
+      #filter-section { padding-top: 40px; padding-bottom: 24px; }
+      #cars-section { padding-bottom: 60px; }
+      #cars-grid { grid-template-columns: 1fr; gap: 20px; }
+      .card-img-wrap { height: 240px; }
+      .search-row { flex-direction: column; }
+      .search-wrap { min-width: 0; }
+      .sort-select { min-width: 0; width: 100%; }
+      .hero-stats { gap: 24px; }
+      .stat-num { font-size: 22px; }
+      .stat-label { font-size: 9px; letter-spacing: .2em; }
+      .hero-eyebrow { font-size: 9px; letter-spacing: .4em; }
+      #hero { min-height: 560px; }
+      .cta-banner { padding: 32px 16px; gap: 16px; }
+      .cta-banner-title { font-size: 20px; }
+      .cta-banner-desc { font-size: 14px; }
+      .cta-banner-btn { padding: 14px 20px; font-size: 10px; letter-spacing: .15em; white-space: normal; }
+      .cta-banner-actions { flex-direction: column; width: 100%; }
+      .cta-banner-btn { width: 100%; }
+      .modal-body { padding: 20px 16px; }
+      .modal-title { font-size: 20px; }
+      .modal-hero { height: 220px; }
+      .modal-spec-val { font-size: 16px; }
+      .modal-btn { padding: 14px 20px; font-size: 10px; letter-spacing: .15em; }
+      .load-more-btn { padding: 16px 32px; font-size: 11px; }
+      footer { padding: 32px 16px; flex-direction: column; text-align: center; }
+      .brand-select { min-width: 0; width: 100%; }
+      .marquee-item { font-size: 9px; padding: 0 20px; }
+      .feature-card { padding: 28px 20px; }
     }
 
     /* ── COUNT BADGE ── */
@@ -1752,9 +1739,9 @@ height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
         <option value="year-desc">Year: Newest</option>
         <option value="year-asc">Year: Oldest</option>
       </select>
-    </div>
-    <div class="filter-btns" id="brand-filters">
-      <button class="filter-btn active" data-brand="all"><span>ALL</span></button>
+      <select class="sort-select brand-select" id="brand-select">
+        <option value="all">ALL BRANDS</option>
+      </select>
     </div>
   </div>
 </section>
@@ -2731,34 +2718,25 @@ contactOverlay.addEventListener('click', e => {
 
 // ── FILTERS ───────────────────────────────────────────────────────────────────
 function setupFilterBtns() {
-  document.getElementById('brand-filters').addEventListener('click', (e) => {
-    const btn = e.target.closest('.filter-btn');
-    if (!btn) return;
-    addRipple(btn, e);
-    document.querySelectorAll('#brand-filters .filter-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    currentBrand = btn.dataset.brand;
+  document.getElementById('brand-select').addEventListener('change', (e) => {
+    currentBrand = e.target.value;
     visibleCount = CARS_PER_PAGE;
     renderCars();
   });
 }
 
 function buildBrandFilters(brands) {
-  const container = document.getElementById('brand-filters');
-  // Keep ALL button, remove any previously added brand buttons
-  container.querySelectorAll('.filter-btn:not([data-brand="all"])').forEach(b => b.remove());
-
-  // Update ALL button with total count
-  const allBtn = container.querySelector('[data-brand="all"]');
-  if (allBtn) allBtn.innerHTML = `<span>ALL<span class="filter-count">${allCars.length}</span></span>`;
-
+  const sel = document.getElementById('brand-select');
+  // Clear all options except first
+  while (sel.options.length > 1) sel.remove(1);
+  // Update ALL option text with count
+  sel.options[0].textContent = 'ALL BRANDS (' + allCars.length + ')';
   brands.forEach(brand => {
     const count = allCars.filter(c => c.brand === brand).length;
-    const btn = document.createElement('button');
-    btn.className = 'filter-btn';
-    btn.dataset.brand = brand;
-    btn.innerHTML = `<span>${brand.toUpperCase()}<span class="filter-count">${count}</span></span>`;
-    container.appendChild(btn);
+    const opt = document.createElement('option');
+    opt.value = brand;
+    opt.textContent = brand.toUpperCase() + ' (' + count + ')';
+    sel.appendChild(opt);
   });
 }
 
@@ -2848,8 +2826,7 @@ async function loadCarsFromAPI() {
       allCars   = [];
       apiLoaded = false;
       currentBrand = 'all';
-      document.querySelectorAll('#brand-filters .filter-btn').forEach(b => b.classList.remove('active'));
-      document.querySelector('#brand-filters .filter-btn[data-brand="all"]').classList.add('active');
+      document.getElementById('brand-select').value = 'all';
       await fetch('/api/refresh', { method: 'POST' });
       await loadCarsFromAPI();
     });
