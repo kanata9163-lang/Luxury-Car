@@ -1,11 +1,4 @@
 {
-  "buildCommand": "node build.js",
-  "installCommand": "npm install",
   "framework": null,
-  "outputDirectory": ".",
-  "functions": {
-    "api/img.js": {
-      "maxDuration": 15
-    }
-  }
+  "outputDirectory": "."
 }
