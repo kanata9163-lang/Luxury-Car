@@ -292,27 +292,34 @@
        STATS STRIP
        ============================================================ */
     .stats {
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-      padding: 56px 0;
-      background: var(--bg-card);
+      padding: 80px 0;
+      background: #0C0C0C;
+      position: relative;
+      overflow: hidden;
+    }
+    .stats::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse at 50% 50%, rgba(184,150,62,0.08) 0%, transparent 70%);
     }
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 32px;
+      position: relative; z-index: 1;
     }
     .stat { text-align: center; }
     .stat-num {
       font-family: var(--font-serif);
-      font-size: 44px; font-weight: 600;
+      font-size: 52px; font-weight: 600;
       color: var(--gold);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
+      line-height: 1;
     }
     .stat-label {
-      font-size: 12px; font-weight: 500;
-      letter-spacing: 2px; text-transform: uppercase;
-      color: var(--text-muted);
+      font-size: 11px; font-weight: 500;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
     }
 
     /* ============================================================
@@ -364,74 +371,56 @@
     /* ============================================================
        BRANDS SHOWCASE
        ============================================================ */
-    .brands { background: var(--bg-card); }
-    .brands-header { text-align: center; margin-bottom: 72px; }
+    .brands { background: var(--bg); padding-top: 100px; padding-bottom: 100px; }
+    .brands-header { text-align: center; margin-bottom: 64px; }
     .brands-grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
+      gap: 16px;
     }
     .brand-card {
       position: relative;
-      background: var(--bg);
-      border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 36px 24px 32px;
-      text-align: center;
       overflow: hidden;
-      transition: all var(--transition);
+      cursor: pointer;
+      aspect-ratio: 3 / 4;
     }
-    .brand-card::before {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      opacity: 0;
-      transition: all var(--transition);
+    .brand-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .brand-card:hover {
-      border-color: var(--border-hover);
-      transform: translateY(-6px);
-      box-shadow: 0 24px 48px rgba(0,0,0,0.08);
-    }
-    .brand-card:hover::before { opacity: 1; }
-    .brand-emblem {
-      width: 72px; height: 72px;
-      margin: 0 auto 20px;
-      display: flex; align-items: center; justify-content: center;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #FAF6EC 0%, #F0E8D4 100%);
-      border: none;
-      transition: all var(--transition);
-    }
-    .brand-emblem svg {
-      width: 32px; height: 32px;
-      color: var(--gold-dark);
-      transition: all var(--transition);
-    }
-    .brand-card:hover .brand-emblem {
-      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+    .brand-card:hover img {
       transform: scale(1.08);
-      box-shadow: 0 8px 24px rgba(184,150,62,0.3);
     }
-    .brand-card:hover .brand-emblem svg {
-      color: #FFFFFF;
+    .brand-card-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 30%, rgba(0,0,0,0.75) 100%);
+      transition: background var(--transition);
+    }
+    .brand-card:hover .brand-card-overlay {
+      background: linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.8) 100%);
+    }
+    .brand-card-content {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 28px 20px;
+      z-index: 2;
+    }
+    .brand-origin {
+      font-size: 9px; font-weight: 600;
+      letter-spacing: 2.5px; text-transform: uppercase;
+      color: var(--gold-light);
+      margin-bottom: 6px;
     }
     .brand-name {
       font-family: var(--font-serif);
-      font-size: 17px; font-weight: 600;
-      letter-spacing: 0.5px;
-      margin-bottom: 6px;
-    }
-    .brand-origin {
-      font-size: 10px; font-weight: 600;
-      letter-spacing: 2px; text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 10px;
+      font-size: 20px; font-weight: 600;
+      color: #fff;
+      margin-bottom: 4px;
     }
     .brand-models {
-      font-size: 12px; color: var(--text-muted);
-      line-height: 1.6;
+      font-size: 12px; color: rgba(255,255,255,0.6);
+      line-height: 1.5;
     }
 
     /* ============================================================
@@ -547,116 +536,105 @@
     /* ============================================================
        WHY TCV — BENTO GRID
        ============================================================ */
+    .why-section { background: var(--bg-card); }
     .why-header { margin-bottom: 64px; }
     .bento-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
+      grid-auto-rows: auto;
+      gap: 16px;
     }
     .bento-card {
-      background: var(--bg-card);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 40px 32px;
+      padding: 36px 28px;
       transition: all var(--transition);
       position: relative;
       overflow: hidden;
     }
-    .bento-card::after {
-      content: '';
-      position: absolute; top: 0; left: 0; right: 0;
-      height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), transparent);
-      opacity: 0;
-      transition: opacity var(--transition);
-    }
     .bento-card:hover {
       border-color: var(--border-hover);
-      transform: translateY(-2px);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.06);
     }
-    .bento-card:hover::after { opacity: 0.5; }
     .bento-card.wide { grid-column: span 2; }
+    .bento-num {
+      font-family: var(--font-serif);
+      font-size: 48px; font-weight: 600;
+      color: rgba(184,150,62,0.12);
+      line-height: 1;
+      margin-bottom: 12px;
+    }
     .bento-icon {
-      width: 52px; height: 52px;
+      width: 44px; height: 44px;
       display: flex; align-items: center; justify-content: center;
-      border-radius: var(--radius);
-      background: linear-gradient(135deg, #FAF6EC 0%, #F0E8D4 100%);
-      border: none;
-      margin-bottom: 24px;
+      border-radius: 10px;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      margin-bottom: 20px;
     }
     .bento-icon svg {
-      width: 24px; height: 24px;
-      color: var(--gold-dark);
+      width: 22px; height: 22px;
+      color: #fff;
     }
     .bento-card h3 {
-      font-size: 18px; font-weight: 600;
+      font-size: 17px; font-weight: 600;
       margin-bottom: 10px;
     }
     .bento-card p {
       font-size: 14px; color: var(--text-muted);
-      line-height: 1.7;
+      line-height: 1.75;
     }
 
     /* ============================================================
        PROCESS
        ============================================================ */
-    .process { background: var(--bg-card); }
+    .process { background: var(--bg); }
     .process-header { text-align: center; margin-bottom: 72px; }
     .process-track {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 24px;
+      gap: 0;
       position: relative;
     }
     .process-track::before {
       content: '';
       position: absolute;
-      top: 44px; left: 12.5%; right: 12.5%;
+      top: 28px; left: 12.5%; right: 12.5%;
       height: 1px;
-      background: linear-gradient(90deg, transparent, var(--gold), var(--gold), transparent);
-      opacity: 0.2;
+      background: var(--border);
     }
-    .process-step { text-align: center; position: relative; }
+    .process-step {
+      text-align: center;
+      position: relative;
+      padding: 0 16px;
+    }
     .process-num {
-      width: 80px; height: 80px;
-      margin: 0 auto 28px;
+      width: 56px; height: 56px;
+      margin: 0 auto 24px;
       display: flex; align-items: center; justify-content: center;
-      flex-direction: column;
       border-radius: 50%;
-      background: var(--bg);
-      border: 1px solid var(--border);
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+      font-family: var(--font-serif);
+      font-size: 22px; font-weight: 600;
+      color: #fff;
       position: relative; z-index: 1;
-      transition: all var(--transition);
-    }
-    .process-num svg {
-      width: 28px; height: 28px;
-      color: var(--gold);
-      transition: all var(--transition);
-    }
-    .process-num .step-label {
-      font-size: 9px; font-weight: 700;
-      letter-spacing: 1px; text-transform: uppercase;
-      color: var(--text-muted);
-      margin-top: 2px;
-    }
-    .process-step:hover .process-num {
-      border-color: var(--gold);
-      background: linear-gradient(135deg, #FAF6EC 0%, #F0E8D4 100%);
-      box-shadow: 0 8px 32px rgba(184,150,62,0.15);
+      box-shadow: 0 4px 16px rgba(184,150,62,0.3);
     }
     .process-step h3 {
-      font-size: 17px; font-weight: 600;
+      font-size: 16px; font-weight: 600;
       margin-bottom: 10px;
     }
     .process-step p {
-      font-size: 14px; color: var(--text-muted);
+      font-size: 13px; color: var(--text-muted);
       line-height: 1.7;
-      max-width: 220px; margin: 0 auto;
+      max-width: 200px; margin: 0 auto;
     }
 
     /* ============================================================
        TESTIMONIALS
        ============================================================ */
+    .testimonials-section { background: var(--bg-card); }
     .testimonials-header { text-align: center; margin-bottom: 64px; }
     .testimonials-grid {
       display: grid;
@@ -664,34 +642,51 @@
       gap: 20px;
     }
     .testimonial-card {
-      background: var(--bg-card);
+      background: var(--bg);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 36px 28px;
       transition: all var(--transition);
+      position: relative;
     }
-    .testimonial-card:hover { border-color: var(--border-hover); }
+    .testimonial-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.06);
+    }
+    .t-quote-mark {
+      font-family: var(--font-serif);
+      font-size: 64px; font-weight: 700;
+      color: var(--gold);
+      line-height: 0.8;
+      margin-bottom: 8px;
+      opacity: 0.3;
+    }
     .t-stars {
-      display: flex; align-items: center; gap: 3px;
+      display: flex; align-items: center; gap: 2px;
       margin-bottom: 16px;
     }
     .t-stars svg {
-      width: 16px; height: 16px;
+      width: 14px; height: 14px;
       color: var(--gold);
     }
     .t-quote {
-      font-size: 15px; line-height: 1.75;
-      color: var(--text-muted);
-      margin-bottom: 24px;
-      font-style: italic;
+      font-size: 15px; line-height: 1.8;
+      color: var(--text);
+      margin-bottom: 28px;
     }
-    .t-author { display: flex; align-items: center; gap: 12px; }
+    .t-author {
+      display: flex; align-items: center; gap: 12px;
+      padding-top: 20px;
+      border-top: 1px solid var(--border);
+    }
     .t-avatar {
-      width: 40px; height: 40px;
+      width: 44px; height: 44px;
       border-radius: 50%;
-      background: var(--gold);
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
       display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 15px; color: #FFFFFF;
+      font-weight: 700; font-size: 16px; color: #FFFFFF;
+      flex-shrink: 0;
     }
     .t-name { font-size: 14px; font-weight: 600; }
     .t-loc { font-size: 12px; color: var(--text-muted); }
@@ -863,7 +858,7 @@
        RESPONSIVE
        ============================================================ */
     @media (max-width: 1024px) {
-      .brands-grid { grid-template-columns: repeat(3, 1fr); }
+      .brands-grid { grid-template-columns: repeat(2, 1fr); }
       .bento-grid { grid-template-columns: 1fr 1fr; }
       .bento-card.wide { grid-column: span 1; }
       .process-track { grid-template-columns: repeat(2, 1fr); gap: 40px; }
@@ -875,10 +870,12 @@
       .nav-links { display: none; }
       .burger { display: flex; }
       section { padding: 80px 0; }
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .stats-grid { grid-template-columns: repeat(2, 1fr); gap: 24px; }
+      .stat-num { font-size: 40px; }
       .brands-grid { grid-template-columns: repeat(2, 1fr); }
+      .brand-card { aspect-ratio: 3 / 3.5; }
       .bento-grid { grid-template-columns: 1fr; }
-      .process-track { grid-template-columns: 1fr; gap: 32px; }
+      .process-track { grid-template-columns: 1fr 1fr; gap: 32px; }
       .testimonials-grid { grid-template-columns: 1fr; }
       .hero h1 { font-size: 38px; }
       .hero-btns { flex-direction: column; }
@@ -890,9 +887,11 @@
       .form-row { grid-template-columns: 1fr; }
     }
     @media (max-width: 480px) {
-      .brands-grid { grid-template-columns: 1fr; }
+      .brands-grid { grid-template-columns: 1fr 1fr; }
+      .brand-card { aspect-ratio: 2 / 3; }
       .stats-grid { grid-template-columns: 1fr 1fr; gap: 20px; }
       .stat-num { font-size: 36px; }
+      .process-track { grid-template-columns: 1fr; }
     }
 
     /* ============================================================
@@ -1053,53 +1052,77 @@
         <p class="section-desc centered">From Italian supercars to British grand tourers, we source the finest examples from Japan's meticulous owners.</p>
       </div>
       <div class="brands-grid">
-        <div class="brand-card reveal">
-          <div class="brand-emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2L4 7v10l8 5 8-5V7l-8-5z"/><path d="M12 22V12"/><path d="M20 7l-8 5-8-5"/></svg></div>
-          <div class="brand-name">Ferrari</div>
-          <div class="brand-origin">Maranello, Italy</div>
-          <div class="brand-models">488 GTB, SF90, Roma, F8, 296</div>
+        <div class="brand-card reveal" onclick="filterCars('Ferrari'); document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+          <img src="car_dealer_images/Ferrari/SF90_02.jpg" alt="Ferrari" loading="lazy" />
+          <div class="brand-card-overlay"></div>
+          <div class="brand-card-content">
+            <div class="brand-origin">Maranello, Italy</div>
+            <div class="brand-name">Ferrari</div>
+            <div class="brand-models">SF90 / 488 GTB / Roma / F8 / 296</div>
+          </div>
         </div>
-        <div class="brand-card reveal">
-          <div class="brand-emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
-          <div class="brand-name">Lamborghini</div>
-          <div class="brand-origin">Sant'Agata, Italy</div>
-          <div class="brand-models">Urus, Huracan, Aventador, Revuelto</div>
+        <div class="brand-card reveal" onclick="filterCars('Lamborghini'); document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+          <img src="car_dealer_images/Lamborghini/Revuelto_02.jpg" alt="Lamborghini" loading="lazy" />
+          <div class="brand-card-overlay"></div>
+          <div class="brand-card-content">
+            <div class="brand-origin">Sant'Agata Bolognese, Italy</div>
+            <div class="brand-name">Lamborghini</div>
+            <div class="brand-models">Revuelto / Huracan / Aventador / Urus</div>
+          </div>
         </div>
-        <div class="brand-card reveal">
-          <div class="brand-emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg></div>
-          <div class="brand-name">Porsche</div>
-          <div class="brand-origin">Stuttgart, Germany</div>
-          <div class="brand-models">911 GT3, GT2 RS, 918, Carrera GT</div>
+        <div class="brand-card reveal" onclick="filterCars('Porsche'); document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+          <img src="car_dealer_images/Porsche/911_GT3_02.jpg" alt="Porsche" loading="lazy" />
+          <div class="brand-card-overlay"></div>
+          <div class="brand-card-content">
+            <div class="brand-origin">Stuttgart, Germany</div>
+            <div class="brand-name">Porsche</div>
+            <div class="brand-models">911 GT3 / GT2 RS / 918 / Carrera GT</div>
+          </div>
         </div>
-        <div class="brand-card reveal">
-          <div class="brand-emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-          <div class="brand-name">Rolls-Royce</div>
-          <div class="brand-origin">Goodwood, England</div>
-          <div class="brand-models">Cullinan, Ghost, Phantom, Wraith</div>
+        <div class="brand-card reveal" onclick="filterCars('Rolls-Royce'); document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+          <img src="car_dealer_images/Rolls-Royce/Phantom_02.jpg" alt="Rolls-Royce" loading="lazy" />
+          <div class="brand-card-overlay"></div>
+          <div class="brand-card-content">
+            <div class="brand-origin">Goodwood, England</div>
+            <div class="brand-name">Rolls-Royce</div>
+            <div class="brand-models">Cullinan / Ghost / Phantom / Wraith</div>
+          </div>
         </div>
-        <div class="brand-card reveal">
-          <div class="brand-emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2z"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div>
-          <div class="brand-name">Bentley</div>
-          <div class="brand-origin">Crewe, England</div>
-          <div class="brand-models">Continental GT, Bentayga, Flying Spur</div>
+        <div class="brand-card reveal" onclick="filterCars('Bentley'); document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+          <img src="car_dealer_images/Bentley/Continental_GT_02.jpg" alt="Bentley" loading="lazy" />
+          <div class="brand-card-overlay"></div>
+          <div class="brand-card-content">
+            <div class="brand-origin">Crewe, England</div>
+            <div class="brand-name">Bentley</div>
+            <div class="brand-models">Continental GT / Bentayga / Flying Spur</div>
+          </div>
         </div>
-        <div class="brand-card reveal">
-          <div class="brand-emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M3 12h1m8-9v1m8 8h1m-9 8v1M5.6 5.6l.7.7m12.1-.7-.7.7m0 11.4.7.7m-12.1-.7-.7.7"/></svg></div>
-          <div class="brand-name">McLaren</div>
-          <div class="brand-origin">Woking, England</div>
-          <div class="brand-models">720S, 765LT, Artura, P1</div>
+        <div class="brand-card reveal" onclick="filterCars('McLaren'); document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+          <img src="car_dealer_images/McLaren/720S_02.jpg" alt="McLaren" loading="lazy" />
+          <div class="brand-card-overlay"></div>
+          <div class="brand-card-content">
+            <div class="brand-origin">Woking, England</div>
+            <div class="brand-name">McLaren</div>
+            <div class="brand-models">720S / 765LT / Artura / P1</div>
+          </div>
         </div>
-        <div class="brand-card reveal">
-          <div class="brand-emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18.5 12.5c0 4.14-2.91 7.5-6.5 7.5S5.5 16.64 5.5 12.5c0-2.61 1.17-4.94 3-6.5L12 3l3.5 3c1.83 1.56 3 3.89 3 6.5z"/><path d="M12 20v-8"/><path d="M8 14l4-4 4 4"/></svg></div>
-          <div class="brand-name">Aston Martin</div>
-          <div class="brand-origin">Gaydon, England</div>
-          <div class="brand-models">DB11, Vantage, DBS, Valkyrie</div>
+        <div class="brand-card reveal" onclick="filterCars('Aston Martin'); document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+          <img src="car_dealer_images/Aston_Martin/DBS_02.jpg" alt="Aston Martin" loading="lazy" />
+          <div class="brand-card-overlay"></div>
+          <div class="brand-card-content">
+            <div class="brand-origin">Gaydon, England</div>
+            <div class="brand-name">Aston Martin</div>
+            <div class="brand-models">DB11 / Vantage / DBS / Valkyrie</div>
+          </div>
         </div>
-        <div class="brand-card reveal">
-          <div class="brand-emblem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></div>
-          <div class="brand-name">Mercedes-AMG</div>
-          <div class="brand-origin">Affalterbach, Germany</div>
-          <div class="brand-models">GT, GT Black Series, G63, SL</div>
+        <div class="brand-card reveal" onclick="filterCars('Mercedes-AMG'); document.getElementById('vehicles').scrollIntoView({behavior:'smooth'})">
+          <img src="car_dealer_images/Mercedes-AMG/GT_Black_Series_02.jpg" alt="Mercedes-AMG" loading="lazy" />
+          <div class="brand-card-overlay"></div>
+          <div class="brand-card-content">
+            <div class="brand-origin">Affalterbach, Germany</div>
+            <div class="brand-name">Mercedes-AMG</div>
+            <div class="brand-models">GT / GT Black Series / G63 / SL</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1121,6 +1144,8 @@
           <button class="filter-btn" onclick="filterCars('Rolls-Royce')">Rolls-Royce</button>
           <button class="filter-btn" onclick="filterCars('Mercedes-AMG')">AMG</button>
           <button class="filter-btn" onclick="filterCars('McLaren')">McLaren</button>
+          <button class="filter-btn" onclick="filterCars('Bentley')">Bentley</button>
+          <button class="filter-btn" onclick="filterCars('Aston Martin')">Aston Martin</button>
         </div>
       </div>
       <div class="gallery-grid" id="galleryGrid">
@@ -1276,7 +1301,7 @@
   </section>
 
   <!-- ===== WHY TCV ===== -->
-  <section id="why">
+  <section class="why-section" id="why">
     <div class="container">
       <div class="why-header reveal">
         <div class="section-eyebrow">The TCV Advantage</div>
@@ -1290,7 +1315,7 @@
           <p>Every vehicle undergoes a comprehensive mechanical, electrical, and cosmetic evaluation by certified technicians. We document everything with detailed photos and video walk-throughs, so you know exactly what you're getting before purchase.</p>
         </div>
         <div class="bento-card reveal">
-          <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+          <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
           <h3>Full History &amp; Provenance</h3>
           <p>Complete Japanese auction records, maintenance logs, and ownership history — fully translated and verified.</p>
         </div>
@@ -1305,7 +1330,7 @@
           <p>Secure escrow payments, comprehensive transit insurance, and real-time tracking. Our satisfaction guarantee means you can buy with complete confidence, no matter where you are in the world.</p>
         </div>
         <div class="bento-card reveal">
-          <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><path d="M8 10h.01"/><path d="M12 10h.01"/><path d="M16 10h.01"/></svg></div>
+          <div class="bento-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
           <h3>Multilingual Concierge</h3>
           <p>Advisors fluent in English, Arabic, Mandarin, and more. Available across your timezone via WhatsApp and LINE.</p>
         </div>
@@ -1323,34 +1348,22 @@
       </div>
       <div class="process-track">
         <div class="process-step reveal">
-          <div class="process-num">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-            <span class="step-label">Step 1</span>
-          </div>
+          <div class="process-num">1</div>
           <h3>Consultation</h3>
           <p>Share your wishlist via WhatsApp or LINE. We'll discuss specs, budget, and timeline.</p>
         </div>
         <div class="process-step reveal">
-          <div class="process-num">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
-            <span class="step-label">Step 2</span>
-          </div>
+          <div class="process-num">2</div>
           <h3>Sourcing &amp; Inspection</h3>
           <p>We locate matching vehicles across Japan's premium networks and conduct our 150-point inspection.</p>
         </div>
         <div class="process-step reveal">
-          <div class="process-num">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            <span class="step-label">Step 3</span>
-          </div>
+          <div class="process-num">3</div>
           <h3>Secure Purchase</h3>
           <p>Review reports, photos, and video. Complete your purchase through secure escrow.</p>
         </div>
         <div class="process-step reveal">
-          <div class="process-num">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-            <span class="step-label">Step 4</span>
-          </div>
+          <div class="process-num">4</div>
           <h3>Global Delivery</h3>
           <p>Export documentation, shipping, customs clearance, and white-glove delivery to your door.</p>
         </div>
@@ -1359,7 +1372,7 @@
   </section>
 
   <!-- ===== TESTIMONIALS ===== -->
-  <section id="testimonials">
+  <section class="testimonials-section" id="testimonials">
     <div class="container">
       <div class="testimonials-header reveal">
         <div class="section-eyebrow">Client Reviews</div>
@@ -1367,8 +1380,9 @@
       </div>
       <div class="testimonials-grid">
         <div class="testimonial-card reveal">
+          <div class="t-quote-mark">&ldquo;</div>
           <div class="t-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-          <p class="t-quote">"TCV found me a pristine GT-R Nismo that I'd been searching for over two years. The entire process from sourcing to delivery in Dubai was absolutely flawless."</p>
+          <p class="t-quote">TCV found me a pristine GT-R Nismo that I'd been searching for over two years. The entire process from sourcing to delivery in Dubai was absolutely flawless.</p>
           <div class="t-author">
             <div class="t-avatar">A</div>
             <div>
@@ -1378,8 +1392,9 @@
           </div>
         </div>
         <div class="testimonial-card reveal">
+          <div class="t-quote-mark">&ldquo;</div>
           <div class="t-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-          <p class="t-quote">"The inspection report was incredibly detailed. Buying a Ferrari sight-unseen from 10,000 miles away felt completely safe. The car arrived exactly as described."</p>
+          <p class="t-quote">The inspection report was incredibly detailed. Buying a Ferrari sight-unseen from 10,000 miles away felt completely safe. The car arrived exactly as described.</p>
           <div class="t-author">
             <div class="t-avatar">M</div>
             <div>
@@ -1389,8 +1404,9 @@
           </div>
         </div>
         <div class="testimonial-card reveal">
+          <div class="t-quote-mark">&ldquo;</div>
           <div class="t-stars"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
-          <p class="t-quote">"This is my third purchase through TCV. Their WhatsApp concierge service is unmatched — responsive, knowledgeable, and genuinely helpful. Can't recommend them enough."</p>
+          <p class="t-quote">This is my third purchase through TCV. Their WhatsApp concierge service is unmatched — responsive, knowledgeable, and genuinely helpful. Can't recommend them enough.</p>
           <div class="t-author">
             <div class="t-avatar">W</div>
             <div>
