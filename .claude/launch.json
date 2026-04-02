@@ -2,10 +2,10 @@
   "version": "0.0.1",
   "configurations": [
     {
-      "name": "luxury-cars",
-      "runtimeExecutable": "node",
-      "runtimeArgs": ["server.js"],
-      "port": 3000
+      "name": "tcv-luxury",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["-m", "http.server", "8091"],
+      "port": 8091
     }
   ]
 }

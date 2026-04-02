@@ -44,16 +44,16 @@
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
     :root {
-      --bg:         #06080A;
-      --bg-card:    #0D1117;
-      --bg-elevated:#151B23;
-      --border:     rgba(255,255,255,0.06);
-      --border-hover:rgba(201,168,76,0.3);
-      --gold:       #C9A84C;
-      --gold-light: #E8D5A0;
+      --bg:         #FFFFFF;
+      --bg-card:    #F7F7F5;
+      --bg-elevated:#FFFFFF;
+      --border:     rgba(0,0,0,0.08);
+      --border-hover:rgba(201,168,76,0.4);
+      --gold:       #B8963E;
+      --gold-light: #D4B465;
       --gold-dark:  #8A6A20;
-      --text:       #E8E8E8;
-      --text-muted: #8B949E;
+      --text:       #1A1A1A;
+      --text-muted: #6B7280;
       --white:      #FFFFFF;
       --success:    #25D366;
       --radius:     12px;
@@ -119,7 +119,7 @@
     }
     .nav.scrolled {
       padding: 12px 0;
-      background: rgba(6,8,10,0.92);
+      background: rgba(255,255,255,0.95);
       backdrop-filter: blur(24px) saturate(1.2);
       border-bottom: 1px solid var(--border);
     }
@@ -168,8 +168,10 @@
     .burger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
     .burger span {
       display: block; width: 22px; height: 1.5px;
-      background: var(--text); transition: all var(--transition);
+      background: var(--text);
+      transition: all var(--transition);
     }
+    .hero .burger span { background: #fff; }
 
     /* ============================================================
        HERO
@@ -183,14 +185,14 @@
     .hero-bg {
       position: absolute; inset: 0;
       background:
-        linear-gradient(180deg, rgba(6,8,10,0.3) 0%, rgba(6,8,10,0.1) 40%, rgba(6,8,10,0.7) 75%, var(--bg) 100%),
+        linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 40%, rgba(255,255,255,0.6) 75%, var(--bg) 100%),
         url('img_hero.jpg') center 35% / cover no-repeat;
     }
     .hero-overlay {
       position: absolute; inset: 0;
       background:
-        radial-gradient(ellipse at 30% 20%, rgba(201,168,76,0.06) 0%, transparent 60%),
-        radial-gradient(ellipse at 70% 80%, rgba(201,168,76,0.04) 0%, transparent 50%);
+        radial-gradient(ellipse at 30% 20%, rgba(184,150,62,0.04) 0%, transparent 60%),
+        radial-gradient(ellipse at 70% 80%, rgba(184,150,62,0.03) 0%, transparent 50%);
     }
     .hero-content {
       position: relative; z-index: 2;
@@ -201,12 +203,13 @@
     .hero-eyebrow {
       display: inline-flex; align-items: center; gap: 10px;
       padding: 8px 20px;
-      background: rgba(201,168,76,0.08);
-      border: 1px solid rgba(201,168,76,0.2);
+      background: rgba(0,0,0,0.35);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 100px;
       font-size: 11px; font-weight: 600;
       letter-spacing: 2.5px; text-transform: uppercase;
-      color: var(--gold);
+      color: var(--gold-light);
       margin-bottom: 28px;
     }
     .hero-eyebrow .dot {
@@ -222,14 +225,17 @@
       line-height: 1.08;
       letter-spacing: -0.5px;
       margin-bottom: 24px;
+      color: #FFFFFF;
+      text-shadow: 0 2px 20px rgba(0,0,0,0.4);
     }
     .hero h1 em {
       font-style: italic;
-      color: var(--gold);
+      color: var(--gold-light);
     }
     .hero-sub {
       font-size: 17px; line-height: 1.75;
-      color: var(--text-muted);
+      color: rgba(255,255,255,0.8);
+      text-shadow: 0 1px 8px rgba(0,0,0,0.3);
       max-width: 520px;
       margin-bottom: 44px;
     }
@@ -394,14 +400,18 @@
       margin: 0 auto 20px;
       display: flex; align-items: center; justify-content: center;
       border-radius: 50%;
-      background: rgba(201,168,76,0.06);
-      border: 1px solid rgba(201,168,76,0.12);
-      font-size: 28px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      font-family: var(--font-serif);
+      font-size: 20px; font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 1px;
       transition: all var(--transition);
     }
     .brand-card:hover .brand-emblem {
-      background: rgba(201,168,76,0.1);
-      border-color: rgba(201,168,76,0.25);
+      background: var(--gold);
+      border-color: var(--gold);
+      color: #FFFFFF;
       transform: scale(1.05);
     }
     .brand-name {
@@ -478,9 +488,9 @@
     .car-card-img .car-badge {
       position: absolute; top: 12px; left: 12px;
       padding: 5px 12px;
-      background: rgba(6,8,10,0.75);
+      background: rgba(255,255,255,0.85);
       backdrop-filter: blur(8px);
-      border: 1px solid rgba(201,168,76,0.2);
+      border: 1px solid rgba(184,150,62,0.25);
       border-radius: 4px;
       font-size: 10px; font-weight: 600;
       letter-spacing: 1.5px; text-transform: uppercase;
@@ -561,9 +571,11 @@
       width: 48px; height: 48px;
       display: flex; align-items: center; justify-content: center;
       border-radius: var(--radius);
-      background: rgba(201,168,76,0.08);
-      border: 1px solid rgba(201,168,76,0.15);
-      font-size: 22px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      font-family: var(--font-serif);
+      font-size: 16px; font-weight: 600;
+      color: var(--gold);
       margin-bottom: 24px;
     }
     .bento-card h3 {
@@ -641,7 +653,8 @@
     .testimonial-card:hover { border-color: var(--border-hover); }
     .t-stars {
       color: var(--gold); font-size: 13px;
-      letter-spacing: 2px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
       margin-bottom: 16px;
     }
     .t-quote {
@@ -654,9 +667,9 @@
     .t-avatar {
       width: 40px; height: 40px;
       border-radius: 50%;
-      background: linear-gradient(135deg, var(--gold), var(--gold-light));
+      background: var(--gold);
       display: flex; align-items: center; justify-content: center;
-      font-weight: 700; font-size: 15px; color: var(--bg);
+      font-weight: 700; font-size: 15px; color: #FFFFFF;
     }
     .t-name { font-size: 14px; font-weight: 600; }
     .t-loc { font-size: 12px; color: var(--text-muted); }
@@ -672,7 +685,7 @@
     .cta-section::before {
       content: '';
       position: absolute; inset: 0;
-      background: radial-gradient(ellipse at center, rgba(201,168,76,0.06) 0%, transparent 65%);
+      background: radial-gradient(ellipse at center, rgba(184,150,62,0.06) 0%, transparent 65%);
     }
     .cta-inner {
       position: relative; z-index: 2;
@@ -730,7 +743,7 @@
        ============================================================ */
     .modal-overlay {
       position: fixed; inset: 0; z-index: 9999;
-      background: rgba(0,0,0,0.75);
+      background: rgba(0,0,0,0.4);
       backdrop-filter: blur(8px);
       display: none;
       align-items: center; justify-content: center;
@@ -738,8 +751,9 @@
     }
     .modal-overlay.open { display: flex; }
     .modal {
-      background: var(--bg-elevated);
+      background: #FFFFFF;
       border: 1px solid var(--border);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.15);
       border-radius: var(--radius-lg);
       width: 100%; max-width: 520px;
       max-height: 90vh;
@@ -753,12 +767,12 @@
       width: 36px; height: 36px;
       display: flex; align-items: center; justify-content: center;
       border-radius: 50%;
-      background: rgba(255,255,255,0.06);
+      background: var(--bg-card);
       color: var(--text-muted);
       font-size: 18px;
       transition: all var(--transition);
     }
-    .modal-close:hover { background: rgba(255,255,255,0.12); color: var(--text); }
+    .modal-close:hover { background: var(--border); color: var(--text); }
     .modal h2 {
       font-family: var(--font-serif);
       font-size: 24px; font-weight: 600;
@@ -780,7 +794,7 @@
     .form-group select {
       width: 100%;
       padding: 12px 16px;
-      background: rgba(255,255,255,0.04);
+      background: #F7F7F5;
       border: 1px solid var(--border);
       border-radius: 6px;
       color: var(--text);
@@ -793,7 +807,7 @@
     .form-group input:focus,
     .form-group select:focus { border-color: var(--gold); }
     .form-group select { cursor: pointer; }
-    .form-group select option { background: var(--bg-elevated); color: var(--text); }
+    .form-group select option { background: #FFFFFF; color: var(--text); }
     .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .form-submit { width: 100%; margin-top: 8px; }
 
@@ -864,7 +878,7 @@
        ============================================================ */
     .mobile-nav {
       position: fixed; inset: 0; z-index: 9998;
-      background: rgba(6,8,10,0.97);
+      background: rgba(255,255,255,0.97);
       backdrop-filter: blur(20px);
       display: none;
       flex-direction: column;
@@ -882,7 +896,7 @@
     .mobile-nav a:hover { color: var(--gold); }
     .mobile-nav-close {
       position: absolute; top: 24px; right: 24px;
-      font-size: 28px; color: var(--text-muted);
+      font-size: 28px; color: var(--text);
       cursor: pointer;
     }
   </style>
@@ -1018,42 +1032,42 @@
       </div>
       <div class="brands-grid">
         <div class="brand-card reveal">
-          <div class="brand-emblem">&#127950;</div>
+          <div class="brand-emblem">F</div>
           <div class="brand-name">Ferrari</div>
           <div class="brand-models">488 GTB, SF90, Roma, F8, 296</div>
         </div>
         <div class="brand-card reveal">
-          <div class="brand-emblem">&#128002;</div>
+          <div class="brand-emblem">L</div>
           <div class="brand-name">Lamborghini</div>
           <div class="brand-models">Urus, Huracan, Aventador, Revuelto</div>
         </div>
         <div class="brand-card reveal">
-          <div class="brand-emblem">&#127937;</div>
+          <div class="brand-emblem">P</div>
           <div class="brand-name">Porsche</div>
           <div class="brand-models">911 GT3, GT2 RS, 918, Carrera GT</div>
         </div>
         <div class="brand-card reveal">
-          <div class="brand-emblem">&#128081;</div>
+          <div class="brand-emblem">RR</div>
           <div class="brand-name">Rolls-Royce</div>
           <div class="brand-models">Cullinan, Ghost, Phantom, Wraith</div>
         </div>
         <div class="brand-card reveal">
-          <div class="brand-emblem">&#128142;</div>
+          <div class="brand-emblem">B</div>
           <div class="brand-name">Bentley</div>
           <div class="brand-models">Continental GT, Bentayga, Flying Spur</div>
         </div>
         <div class="brand-card reveal">
-          <div class="brand-emblem">&#9889;</div>
+          <div class="brand-emblem">Mc</div>
           <div class="brand-name">McLaren</div>
           <div class="brand-models">720S, 765LT, Artura, P1</div>
         </div>
         <div class="brand-card reveal">
-          <div class="brand-emblem">&#127760;</div>
+          <div class="brand-emblem">AM</div>
           <div class="brand-name">Aston Martin</div>
           <div class="brand-models">DB11, Vantage, DBS, Valkyrie</div>
         </div>
         <div class="brand-card reveal">
-          <div class="brand-emblem">&#128171;</div>
+          <div class="brand-emblem">AMG</div>
           <div class="brand-name">Mercedes-AMG</div>
           <div class="brand-models">GT, GT Black Series, G63, SL</div>
         </div>
@@ -1241,27 +1255,27 @@
       </div>
       <div class="bento-grid">
         <div class="bento-card wide reveal">
-          <div class="bento-icon">&#128270;</div>
+          <div class="bento-icon">01</div>
           <h3>150-Point Vehicle Inspection</h3>
           <p>Every vehicle undergoes a comprehensive mechanical, electrical, and cosmetic evaluation by certified technicians. We document everything with detailed photos and video walk-throughs, so you know exactly what you're getting before purchase.</p>
         </div>
         <div class="bento-card reveal">
-          <div class="bento-icon">&#128203;</div>
+          <div class="bento-icon">02</div>
           <h3>Full History &amp; Provenance</h3>
           <p>Complete Japanese auction records, maintenance logs, and ownership history — fully translated and verified.</p>
         </div>
         <div class="bento-card reveal">
-          <div class="bento-icon">&#128674;</div>
+          <div class="bento-icon">03</div>
           <h3>Global Door-to-Door</h3>
           <p>End-to-end logistics: export documentation, customs clearance, enclosed transport, and delivery to your location.</p>
         </div>
         <div class="bento-card wide reveal">
-          <div class="bento-icon">&#128171;</div>
+          <div class="bento-icon">04</div>
           <h3>Secure &amp; Transparent Transactions</h3>
           <p>Secure escrow payments, comprehensive transit insurance, and real-time tracking. Our satisfaction guarantee means you can buy with complete confidence, no matter where you are in the world.</p>
         </div>
         <div class="bento-card reveal">
-          <div class="bento-icon">&#127760;</div>
+          <div class="bento-icon">05</div>
           <h3>Multilingual Concierge</h3>
           <p>Advisors fluent in English, Arabic, Mandarin, and more. Available across your timezone via WhatsApp and LINE.</p>
         </div>
@@ -1311,7 +1325,7 @@
       </div>
       <div class="testimonials-grid">
         <div class="testimonial-card reveal">
-          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="t-stars">5.0</div>
           <p class="t-quote">"TCV found me a pristine GT-R Nismo that I'd been searching for over two years. The entire process from sourcing to delivery in Dubai was absolutely flawless."</p>
           <div class="t-author">
             <div class="t-avatar">A</div>
@@ -1322,7 +1336,7 @@
           </div>
         </div>
         <div class="testimonial-card reveal">
-          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="t-stars">5.0</div>
           <p class="t-quote">"The inspection report was incredibly detailed. Buying a Ferrari sight-unseen from 10,000 miles away felt completely safe. The car arrived exactly as described."</p>
           <div class="t-author">
             <div class="t-avatar">M</div>
@@ -1333,7 +1347,7 @@
           </div>
         </div>
         <div class="testimonial-card reveal">
-          <div class="t-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+          <div class="t-stars">5.0</div>
           <p class="t-quote">"This is my third purchase through TCV. Their WhatsApp concierge service is unmatched — responsive, knowledgeable, and genuinely helpful. Can't recommend them enough."</p>
           <div class="t-author">
             <div class="t-avatar">W</div>
